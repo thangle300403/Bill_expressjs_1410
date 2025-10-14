@@ -1,0 +1,44 @@
+@startuml
+actor Customer as User
+participant "Browser" as Browser
+participant "AuthController" as Controller
+participant "CustomerModel" as Model
+participant "Session" as Session
+participant "Server" as Server
+
+== Login Process ==
+User -> Browser: Enters email and password
+Browser -> Controller: Sends login request (email, password)
+Controller -> Model: findEmail(email)
+Model --> Controller: Returns customer data
+Controller -> bcrypt: compareSync(password, customer.password)
+bcrypt --> Controller: Returns match result
+alt Password does not match
+    Controller -> Session: Save error message
+    Controller --> Browser: Redirect to homepage
+else Customer is not active
+    Controller -> Session: Save error message
+    Controller --> Browser: Redirect to homepage
+else Successful Login
+    Controller -> Session: Save name, email
+    Session -> Server: Save session to file
+    Server --> Session: Session saved
+    Controller --> Browser: Redirect to /thong-tin-tai-khoan.html
+end
+
+
+== Logout Process ==
+User -> Browser: Clicks logout
+Browser -> Controller: Sends logout request
+Controller -> Session: Destroy session
+Session --> Browser: Redirect to homepage
+
+== Check Login Process ==
+Browser -> Controller: Sends checkLogin request
+alt User is logged in
+    Controller -> Session: Check session.email
+    Controller --> Browser: Returns { isLogin: true }
+else User is not logged in
+    Controller --> Browser: Returns { isLogin: false }
+end
+@enduml

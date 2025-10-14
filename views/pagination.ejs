@@ -1,0 +1,13 @@
+<!-- Paging -->
+<ul class="pagination pull-right">
+  <% if(page > 1){ %>
+  <li><a href="javascript:void(0)" onclick="goToPage('<%= Number(page) - 1 %>')"><i class="fa fa-chevron-left"></i></a></li>
+  <% } %>
+  <% for(let i=1; i<=totalPage; i++) { %>
+  <li class="<%= page==i?'active':'' %>"><a href="javascript:void(0)" onclick="goToPage('<%= i %>')"><%= i %></a></li>
+  <% } %>
+  <% if(page < totalPage){ %>
+  <li><a href="javascript:void(0)" onclick="goToPage('<%= Number(page) + 1 %>')"><i class="fa fa-chevron-right"></i></a></li>
+  <% } %>
+</ul>
+<!-- End paging -->

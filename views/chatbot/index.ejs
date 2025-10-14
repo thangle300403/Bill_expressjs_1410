@@ -1,0 +1,93 @@
+<main id="maincontent" class="page-main">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="/" target="_self">Trang chủ</a></li>
+          <li><span>/</span></li>
+          <li class="active"><span>Trợ lí ảo</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="chat-container">
+      <h2>Bill Cipher - Chuyên gia cầu lông của bạn</h2>
+
+      <!-- Chatbox where messages will be displayed -->
+      <div class="chatbox" id="chatbox">
+        <p class="bot">Xin chào! Tôi là Bill Cipher. Hãy hỏi tôi bất cứ điều gì về dụng cụ cầu lông, người chơi và hơn thế nữa!</p>
+      </div>
+      <div id="loader" class="loader" style="display:none; text-align:center; margin-bottom:10px;"></div>
+
+      <!-- Input field for user to type message -->
+      <form id="chatForm" method="POST">
+        <div class="input-container">
+          <!-- Loader (displayed above the input field) -->
+          <input type="text" id="userInput" name="input" placeholder="Gửi tin nhắn bạn ở đây ..." />
+          <button type="submit">Gửi</button>
+        </div>
+      </form>
+
+      <script>
+        const chatbox = document.getElementById('chatbox');
+        const userInput = document.getElementById('userInput');
+        const form = document.getElementById('chatForm');
+        const loader = document.getElementById('loader'); // Get the loader element
+
+        // Function to handle sending messages
+        async function sendMessage() {
+          const userMessage = userInput.value.trim();
+          if (!userMessage) return; // Prevent empty submissions
+          userInput.value = ''; // Clear input field
+
+          // Display user message in chatbox
+          chatbox.innerHTML += `<p class="user">${userMessage}</p>`;
+
+          try {
+            // Send message to the server and get chatbot response
+            const response = await fetch('/chatbot-response', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                input: userMessage
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error('Failed to get chatbot response');
+            }
+
+            const data = await response.json();
+            const botMessage = data.response;
+
+            // Display bot message in chatbox
+            chatbox.innerHTML += `<p class="bot">${botMessage}</p>`;
+
+            // Scroll to the bottom of the chatbox
+            chatbox.scrollTop = chatbox.scrollHeight;
+          } catch (error) {
+            console.error('Error:', error);
+            // Display error message in chatbox
+            chatbox.innerHTML += `<p class="error">Error: Unable to get chatbot response. Please try again later.</p>`;
+          }
+        }
+
+        // Event listener for form submission
+        form.addEventListener('submit', (event) => {
+          event.preventDefault(); // Prevent form from refreshing the page
+
+          // Show the loader
+          loader.style.display = 'block';
+
+          // Send message
+          sendMessage()
+            .finally(() => {
+              // Hide the loader after message is processed
+              loader.style.display = 'none';
+            });
+        });
+      </script>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,17 @@
+<aside class="col-md-3">
+  <div class="inner-aside">
+    <div class="category">
+      <ul>
+        <li class="<%= currentRoute === 'show' ? 'active': '' %>">
+          <a href="/thong-tin-tai-khoan.html" title="Reset password" target="_self">Tài khoản của tôi</a>
+        </li>
+        <li class="<%= currentRoute === 'shippingDefault' ? 'active': '' %>">
+          <a href="/dia-chi-giao-hang-mac-dinh.html" title="Địa chỉ giao hàng mặc định" target="_self">Địa chỉ giao hàng mặc định</a>
+        </li>
+        <li class="<%= currentRoute === 'orders' || currentRoute === 'orderDetail' ? 'active': '' %>">
+          <a href="/don-hang-cua-toi.html" target="_self">Đơn hàng của tôi</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>

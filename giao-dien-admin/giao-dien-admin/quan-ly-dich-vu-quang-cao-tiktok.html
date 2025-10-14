@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | Thông Thái Agency - Giải pháp Marketing cho doanh nghiệp.</title>
+  <link rel="icon" href="../site/public/favicon.ico" sizes="32x32">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="public/assets/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="public/assets/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="public/assets/toastr/toastr.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="public/css/adminlte.min.css">
+  <!-- my style -->
+  <link rel="stylesheet" href="public/css/style.css">
+  <!-- summerNote -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+  <!-- favicon delete -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    /* Đoạn code CSS quay icon */
+    .nav-sidebar .menu-is-opening>.nav-link i.right,
+    .nav-sidebar .menu-is-opening>.nav-link svg.right,
+    .nav-sidebar .menu-open>.nav-link i.right,
+    .nav-sidebar .menu-open>.nav-link svg.right {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    label.error {
+      color: red;
+      font-weight: normal !important;
+    }
+
+    body,
+    html {
+      font-size: 14px;
+    }
+
+    [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active {
+      background: none !important;
+      color: #ff6900 !important
+    }
+
+    h1 {
+      font-size: 25px;
+    }
+  </style>
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
+
+    <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="public/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
+                width="60">
+        </div> -->
+
+
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="/" class="brand-link">
+        <img src="public/img/logo_1647334337_3A5C42.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; border-radius: 0;">
+        <!-- <span class="brand-text font-weight-light">AdminLTE 3</span> -->
+      </a>
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex"> -->
+      <!-- <div class="image">
+                  <img src="public/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              </div> -->
+
+      <!-- </div> -->
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+
+
+
+        <!-- SidebarSearch Form -->
+        <!-- <div class="form-inline">
+              <div class="input-group" data-widget="sidebar-search">
+                  <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                  <div class="input-group-append">
+                      <button class="btn btn-sidebar">
+                          <i class="fas fa-search fa-fw"></i>
+                      </button>
+                  </div>
+              </div>
+          </div> -->
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+
+            <li class="nav-item">
+              <a href="quan-ly-trang-chu.html" class="nav-link ">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Quản lý trang chủ
+                </p>
+              </a>
+            </li>
+
+
+            <li class="nav-item ">
+              <a href="quan-ly-dich-vu-quang-cao-facebook.html" class="nav-link ">
+                <i class="nav-icon fas fa-chart-pie"></i>
+                <p>
+                  Quản lý dịch vụ quảng cáo facebook
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-dich-vu-quang-cao-tiktok.html" class="nav-link active">
+                <i class="nav-icon fas fa-tree"></i>
+                <p>
+                  Quản lý dịch vụ quảng cáo tiktok
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-khoa-hoc-facebook.html" class="nav-link ">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Quản lý khóa học facebook
+                </p>
+              </a>
+            </li>
+
+
+
+
+            <li class="nav-item ">
+              <a href="quan-ly-khoa-hoc-tiktok.html" class="nav-link ">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Quản lý khóa học tiktok
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-gioi-thieu.html" class="nav-link ">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>
+                  Quản lý giới thiệu
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Quản lý bài viết
+                  <i class="fas fa-angle-right right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="danh-sach-cac-bai-viet.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Danh sách các bài viết</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="them-bai-viet.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Thêm bài viết</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+
+
+
+
+            <li class="nav-item ">
+              <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-columns"></i>
+                <p>
+                  Quản lý tuyển dụng
+                  <i class="fas fa-angle-right right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="danh-sach-tuyen-dung.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Danh sách tuyển dụng</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="them-tuyen-dung.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Thêm tuyển dụng</p>
+                  </a>
+                </li>
+
+
+              </ul>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-lien-he.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Quản lý liên hệ
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-he-thong.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Quản lý hệ thống
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="tao-sitemap.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Tạo sitemap
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="tao-robots.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Tạo robots
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container" style="margin-top:20px;">
+
+          <div class="container" style="margin-top:20px;">
+            <div class="info" style="text-align: right;">
+              <div class="info" style="top: auto; bottom: 100%;">
+                <a href="javascript:void(0)" class="btn-account dropdown-toggle text-white" data-toggle="dropdown" id="dropdownMenu">ADMIN Hoàng Duy</a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu" style="top: auto; bottom: 100%;">
+
+
+
+                  <li><a href="?c=users&a=account" class="text-white">Thông
+                      tin tài
+                      khoản</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a class="text-white" href="?c=auth&a=logout">Thoát</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- modal -->
+            <!-- .alert.alert-success -->
+            <h1>Quản lý quảng cáo tiktok</h1>
+            <!-- BANNER -->
+            <form action="?c=tiktok&a=updateBanner" method="POST" enctype="multipart/form-data" class="banner-form">
+              <input type="hidden" value="64" name="id">
+              <h3 class="custom-header">Banner</h3>
+              <div>(1263px x 700px)</div>
+              <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+
+              <div class="custom-file">
+                <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="inputGroupFile01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
+
+              <!-- Hình banner -->
+              <div class="oIContainer">
+                <div>Hình hiện tại:</div>
+                <img id="old-file" class="old-image" src="public/img/quang-cao-tiktok/product_1665194067_839453.png" alt="">
+              </div>
+              <div class="pIContainer" style="display: none;">
+                <div>Hình muốn đổi:</div>
+                <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+              </div>
+
+              <div class="form-group">
+                <label for="title1">Tiêu đề banner dòng 1</label>
+                <input type="text" class="form-control" id="title1" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="title1" value="DỊCH VỤ">
+              </div>
+
+              <div class="form-group">
+                <label for="title2">Tiêu đề banner dòng 2</label>
+                <input type="text" class="form-control" id="title2" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="title2" value="DỊCH VỤ QUẢNG CÁO TIKTOK">
+              </div>
+
+              <div class="form-group">
+                <label for="title3">Tiêu đề banner dòng 3</label>
+                <input type="text" class="form-control" id="title3" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="title3" value="BẢNG GIÁ THUÊ CHẠY TIKTOK ADS RẺ UY TÍN">
+              </div>
+
+              <h2>Miêu tả banner</h2>
+              <div class="form-group">
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">Dịch vụ chạy quảng cáo Facebook giá rẻ uy tín và hiệu quả, TZ là công ty Agency chuyên chạy Fb Ads có bảng báo giá chi tiết. Khách hàng cần tư vấn vui lòng điền đầy đủ thông tin để chúng tôi liên hệ bạn trong thời gian sớm nhất. Tz Agency có đội ngũ chuyên chạy Facebook với nhiều năm kinh nghiệm.</textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <form action="?c=tiktok&a=updatePartner" method="POST" enctype="multipart/form-data" class="banner-form">
+              <input type="hidden" value="65" name="id">
+              <h3 class="custom-header">Tiêu đề hình ảnh khách hàng</h3>
+
+              <textarea id="editor" class="ckeditor" name="title" rows="10" cols="80">
+        <p>CHÚNG TÔI ĐÃ ĐỒNG HÀNH CÙNG</p><div><span style="color:#ff0000;">2000+ Khách Hàng</span>&nbsp;ĐẠT HIỆU QUẢ KINH DOANH</div>    </textarea>
+
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- images -->
+            <h2 class="custom-header">Hình ảnh khách hàng</h2>
+            <div>(150px x 60px)</div>
+            <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+
+            <div class="form-group">
+              <form action="?c=tiktok&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="65" name="id">
+                <input type="hidden" value="0" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/quang-cao-tiktok/logo_1641288353_3_6A860A.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="customer_image_1">
+                  <label class="custom-file-label" for="customer_image_1">Choose file</label>
+                </div>
+
+                <div class="form-group">
+                  <label for="alt_1">Alt</label>
+                  <p>Dùng để hiển thị dòng chử khi hình chưa tải. Bạn nên đặt theo tên của khách hàng vd: Fpt</p>
+                  <input type="text" class="form-control" id="alt_1" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="alt" value="dai-chi">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="65" name="id">
+                <input type="hidden" value="1" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/quang-cao-tiktok/logo_1641288114_B0B0ED.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="customer_image_2">
+                  <label class="custom-file-label" for="customer_image_2">Choose file</label>
+                </div>
+
+                <div class="form-group">
+                  <label for="alt_2">Alt</label>
+                  <p>Dùng để hiển thị dòng chử khi hình chưa tải. Bạn nên đặt theo tên của khách hàng vd: Fpt</p>
+                  <input type="text" class="form-control" id="alt_2" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="alt" value="Quán nhỏ">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="65" name="id">
+                <input type="hidden" value="2" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/quang-cao-tiktok/logo_1641287181_25DD6D.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="customer_image_3">
+                  <label class="custom-file-label" for="customer_image_3">Choose file</label>
+                </div>
+
+                <div class="form-group">
+                  <label for="alt_3">Alt</label>
+                  <p>Dùng để hiển thị dòng chử khi hình chưa tải. Bạn nên đặt theo tên của khách hàng vd: Fpt</p>
+                  <input type="text" class="form-control" id="alt_3" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="alt" value="Fpt">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="65" name="id">
+                <input type="hidden" value="3" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/cathay-logo_800x400-20220516092138.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="customer_image_4">
+                  <label class="custom-file-label" for="customer_image_4">Choose file</label>
+                </div>
+
+                <div class="form-group">
+                  <label for="alt_4">Alt</label>
+                  <p>Dùng để hiển thị dòng chử khi hình chưa tải. Bạn nên đặt theo tên của khách hàng vd: Fpt</p>
+                  <input type="text" class="form-control" id="alt_4" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="alt" value="Bảo hiểm">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="65" name="id">
+                <input type="hidden" value="4" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/quang-cao-tiktok/logo_1641288315_3_0FD62D.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="customer_image_5">
+                  <label class="custom-file-label" for="customer_image_5">Choose file</label>
+                </div>
+
+                <div class="form-group">
+                  <label for="alt_5">Alt</label>
+                  <p>Dùng để hiển thị dòng chử khi hình chưa tải. Bạn nên đặt theo tên của khách hàng vd: Fpt</p>
+                  <input type="text" class="form-control" id="alt_5" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="alt" value="vinaseed">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="65" name="id">
+                <input type="hidden" value="5" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/logo-20220516093301.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="customer_image_6">
+                  <label class="custom-file-label" for="customer_image_6">Choose file</label>
+                </div>
+
+                <div class="form-group">
+                  <label for="alt_6">Alt</label>
+                  <p>Dùng để hiển thị dòng chử khi hình chưa tải. Bạn nên đặt theo tên của khách hàng vd: Fpt</p>
+                  <input type="text" class="form-control" id="alt_6" aria-describedby="emailHelp" placeholder="Nhập tiêu đề" name="alt" value="nine west">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+
+            <hr color="red">
+
+            <!-- ADVERTISING METHOD TITLE -->
+            <form action="?c=tiktok&a=updateAdvertisingMethodTitle" method="post">
+              <input type="hidden" value="66" name="id">
+              <h2 class="custom-header">Tiêu đề phương pháp quảng cáo</h2>
+              <textarea id="editor" class="ckeditor" name="title" rows="10" cols="80">
+        PHƯƠNG PHÁP QUẢNG CÁO VƯỢT TRỘI<br /> TẠI ORI AGENCY    </textarea>
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- ADVERTISING METHOD BACKGROUND -->
+            <form action="?c=tiktok&a=updateAdvertisingMethodBackground" method="POST" enctype="multipart/form-data" class="banner-form">
+              <input type="hidden" value="95" name="id">
+              <h3 class="custom-header">Hình nền phương pháp quảng cáo</h3>
+              <div>(1920 x 802px)</div>
+              <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+
+              <div class="custom-file">
+                <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="advertising_method_BG">
+                <label class="custom-file-label" for="advertising_method_BG">Choose file</label>
+              </div>
+
+
+              <!--  -->
+              <div class="oIContainer">
+                <div>Hình hiện tại:</div>
+                <img id="old-file" class="old-image" src="public/img/ss_bg.png" alt="">
+              </div>
+              <div class="pIContainer" style="display: none;">
+                <div>Hình muốn đổi:</div>
+                <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+              </div>
+
+
+              <!-- partner -->
+
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- ADVERTISING METHOD -->
+            <!-- difference -->
+            <h2 class="custom-header">Thông tin phương pháp quảng cáo</h2>
+            <div>(625px x 314px)</div>
+            <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAdvertisingMethod" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="1" name="so">
+                <input type="hidden" value="67" name="id">
+                <input type="hidden" value="0" name="arr_num">
+
+                <h3>Phương pháp quảng cáo 1</h3>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/anh1_2.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="advertising_method_1">
+                  <label class="custom-file-label" for="advertising_method_1">Choose file</label>
+                </div>
+
+                <h3>Tiêu đề phương pháp quảng cáo</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tiêu đề thông tin phương pháp quảng cáo" value="1. Hoạch định chiến lược hiệu quả cho từng dự án" name="title">
+
+                <h3>Miêu tả phương pháp quảng cáo</h3>
+                <textarea id="editor1" class="ckeditor" name="description" rows="10" cols="80"><ul> <li> <p> <span style='font-size:14px;'><span style='font-family:arial,helvetica,sans-serif;'>Nghi&ecirc;n cứu chuy&ecirc;n s&acirc;u Doanh nghiệp - Đối thủ - Kh&aacute;ch h&agrave;ng mục ti&ecirc;u.</span></span> </p> </li> <li> <p> <span style='font-size:14px;'><span style='font-family:arial,helvetica,sans-serif;'>Tư vấn chiến lược ng&agrave;nh h&agrave;ng, chiến lược mục ti&ecirc;u v&agrave; chiến lược k&ecirc;nh</span></span> </p> </li> <li> <p> <span style='font-size:14px;'><span style='font-family:arial,helvetica,sans-serif;'>Tư vấn tối ưu sản phẩm v&agrave; x&acirc;y dựng c&aacute;c chương tr&igrave;nh ưu đ&atilde;i tối ưu h&oacute;a chuyển đổi v&agrave; gia tăng doanh số.</span></span> </p> </li> </ul></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAdvertisingMethod" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="2" name="so">
+                <input type="hidden" value="67" name="id">
+                <input type="hidden" value="1" name="arr_num">
+
+                <h3>Phương pháp quảng cáo 2</h3>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/quang-cao-tiktok/ldp-webc-20220927082155-s9_kz_7CC1C8.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="advertising_method_2">
+                  <label class="custom-file-label" for="advertising_method_2">Choose file</label>
+                </div>
+
+                <h3>Tiêu đề phương pháp quảng cáo</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tiêu đề thông tin phương pháp quảng cáo" value="2. Xây dựng content hiệu quả bằng các phương pháp chuyên sâu" name="title">
+
+                <h3>Miêu tả phương pháp quảng cáo</h3>
+                <textarea id="editor2" class="ckeditor" name="description" rows="10" cols="80"><ul><li><span style="font-family:arial,helvetica,sans-serif;font-size:14px;">Áp dụng mô hình 3D nghiên cứu insight khách hàng</span></li><li><span style="font-family:arial,helvetica,sans-serif;font-size:14px;">Áp dụng mô hình AIDA sáng tạo nội dung theo hành trình khách hàng</span></li><li><span style="font-family:arial,helvetica,sans-serif;font-size:14px;">Xây dựng content chất lượng, đáp ứng mục tiêu quảng cáo</span></li></ul></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAdvertisingMethod" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="3" name="so">
+                <input type="hidden" value="67" name="id">
+                <input type="hidden" value="2" name="arr_num">
+
+                <h3>Phương pháp quảng cáo 3</h3>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/artboard-6-20220926075131-fxren.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="advertising_method_3">
+                  <label class="custom-file-label" for="advertising_method_3">Choose file</label>
+                </div>
+
+                <h3>Tiêu đề phương pháp quảng cáo</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tiêu đề thông tin phương pháp quảng cáo" value="3. Tăng tỷ lệ chuyển đổi thông qua am hiểu chuyên sâu công cụ" name="title">
+
+                <h3>Miêu tả phương pháp quảng cáo</h3>
+                <textarea id="editor3" class="ckeditor" name="description" rows="10" cols="80"><ul><li><span style="font-family:arial,helvetica,sans-serif;font-size:14px;">Áp dụng công cụ phù hợp với chiến thuật quảng cáo</span></li><li><span style="font-family:arial,helvetica,sans-serif;font-size:14px;">Ứng dụng công cụ nhằm tăng chuyển đổi qua phễu khách hàng</span></li><li><span style="font-family:arial,helvetica,sans-serif;font-size:14px;">Liên tục thử nghiệm, update các công cụ mới và tối ưu kết quả</span></li></ul></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAdvertisingMethod" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="4" name="so">
+                <input type="hidden" value="67" name="id">
+                <input type="hidden" value="3" name="arr_num">
+
+                <h3>Phương pháp quảng cáo 4</h3>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/quang-cao-tiktok/ư_2A6FA5.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="advertising_method_4">
+                  <label class="custom-file-label" for="advertising_method_4">Choose file</label>
+                </div>
+
+                <h3>Tiêu đề phương pháp quảng cáo</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tiêu đề thông tin phương pháp quảng cáo" value="4. Đa dạng hoá hình thức quảng cáo" name="title">
+
+                <h3>Miêu tả phương pháp quảng cáo</h3>
+                <textarea id="editor4" class="ckeditor" name="description" rows="10" cols="80"><ul><li><span style="font-family:arial, helvetica, sans-serif;font-size:14px;">Lựa chọn các hình thức quảng cáo tăng chuyển đổi hiệu quả nhất</span></li><li><span style="font-family:arial, helvetica, sans-serif;font-size:14px;">Nhân sự có kinh nghiệm chuyên sâu, update xu hướng thị trường liên tục&nbsp;</span></li><li><span style="font-family:arial, helvetica, sans-serif;font-size:14px;">Áp dụng các phương pháp quảng cáo, phương pháp insight đánh đúng nỗi đau khách hàng</span></li></ul></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+
+            <hr color="red">
+
+            <!-- ACHIVEMENT TITLE -->
+            <form action="?c=tiktok&a=updateAchivementTitle" method="post">
+              <input type="hidden" value="68" name="id">
+              <h2 class="custom-header">Tiêu đề thành tựu</h2>
+              <input class="form-control" type="text" placeholder="Nhập tiêu đề thành tựu của công ty" value="THÀNH TỰU NỔI BẬT CỦA CHÚNG TÔI" name="title">
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- ACHIVEMENT BACKGROUND -->
+            <form action="?c=tiktok&a=updateAchivementBackground" method="POST" enctype="multipart/form-data" class="banner-form">
+              <input type="hidden" value="91" name="id">
+              <h3 class="custom-header">Hình nền thành tựu</h3>
+              <div>(1440 x 828px)</div>
+              <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+
+              <div class="custom-file">
+                <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="achivementBG">
+                <label class="custom-file-label" for="achivementBG">Choose file</label>
+              </div>
+
+
+              <!--  -->
+              <div class="oIContainer">
+                <div>Hình hiện tại:</div>
+                <img id="old-file" class="old-image" src="public/img/bg_ori.jpg" alt="">
+              </div>
+              <div class="pIContainer" style="display: none;">
+                <div>Hình muốn đổi:</div>
+                <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+              </div>
+
+
+              <!-- partner -->
+
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- ACHIVEMENT -->
+            <h2 class="custom-header">Số liệu thành tựu</h2>
+            <p>Hướng dẫn thay đổi biểu tượng</p>
+            <ol>
+              <li>Lên trang <a href="https://fontawesome.com/">https://fontawesome.com/</a></li>
+              <li>Chọn phiên bản 5 như trong hình <img style="max-width: 500px;" src="public/img/example/example-4.jpg" alt=""> </li>
+              <li>Chọn biểu tượng mình muốn ví dụ: <img style="max-width: 500px;" src="public/img/example/example.jpg" alt=""></li>
+              <li>Nhấn vào nó sẽ ra khung này: <img style="max-width: 500px;" src="public/img/example/example-1.jpg" alt=""></li>
+              <li>Coppy thẻ biểu tượng <img style="max-width: 500px;" src="public/img/example/example-2.png" alt=""> </li> rồi bỏ vào đây <img style="max-width: 500px;" src="public/img/example/example-3.png" alt="">
+            </ol>
+
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="69" name="id">
+                <input type="hidden" value="0" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-money' aria-hidden='true'></i>" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<p>Chiến dịch triển khai thành công</p>" name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="1000" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="+" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="69" name="id">
+                <input type="hidden" value="1" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-users' aria-hidden='true'></i>" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<p>Khách hàng đồng hành thành công</p>" name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="500" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="+" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="69" name="id">
+                <input type="hidden" value="2" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-line-chart' aria-hidden='true'></i>" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<p>Ngành hàng triển khai hiệu quả</p>" name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="30" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="+" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="69" name="id">
+                <input type="hidden" value="3" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-thumbs-up' aria-hidden='true'></i>" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<p>Tỷ lệ tái ký các dự án</p>" name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="85" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="%" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+
+            <hr color="red">
+
+            <!-- PROJECT IMPLEMENTATION TITLE -->
+            <form action="?c=tiktok&a=updateProjectImplementationTitle" method="post">
+              <input type="hidden" value="70" name="id">
+              <h2 class="custom-header">Tiêu đề quy trình triển khai dự án</h2>
+              <input class="form-control" type="text" placeholder="Nhập tiêu quy trình triển khai dự án" value="QUY TRÌNH TRIỂN KHAI DỰ ÁN" name="title">
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- PROJECT IMPLEMENTATION -->
+            <!-- img -->
+            <form action="?c=tiktok&a=updateProjectImplementationBackground" method="POST" enctype="multipart/form-data" class="banner-form">
+              <input type="hidden" value="93" name="id">
+              <h3 class="custom-header">Hình nền quy trình triển khai dự án</h3>
+              <div>(1920 x 802px)</div>
+              <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="project_implementation"> -->
+
+              <div class="custom-file">
+                <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="project_imp">
+                <label class="custom-file-label" for="project_imp">Choose file</label>
+              </div>
+
+
+              <!--  -->
+              <div class="oIContainer">
+                <div>Hình hiện tại:</div>
+                <img id="old-file" class="old-image" src="public/img/ss_bg.png" alt="">
+              </div>
+              <div class="pIContainer" style="display: none;">
+                <div>Hình muốn đổi:</div>
+                <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+              </div>
+
+
+              <!-- partner -->
+
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- text -->
+            <h2 class="custom-header">QUY TRÌNH TRIỂN KHAI DỰ ÁN</h2>
+            <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateProjectImplementation" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="71" name="id">
+                <input type="hidden" value="1" name="so">
+                <input type="hidden" value="0" name="arr_num">
+
+                <h3>Quy trình 1</h3>
+                <input class="form-control" type="text" placeholder="Nhập tiêu quy trình triển khai dự án" value="Nghiên cứu dự án và xây dựng kế hoạch" name="description">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateProjectImplementation" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="71" name="id">
+                <input type="hidden" value="2" name="so">
+                <input type="hidden" value="1" name="arr_num">
+
+                <h3>Quy trình 2</h3>
+                <input class="form-control" type="text" placeholder="Nhập tiêu quy trình triển khai dự án" value="Triển khai quảng cáo Facebook" name="description">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateProjectImplementation" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="71" name="id">
+                <input type="hidden" value="3" name="so">
+                <input type="hidden" value="2" name="arr_num">
+
+                <h3>Quy trình 3</h3>
+                <input class="form-control" type="text" placeholder="Nhập tiêu quy trình triển khai dự án" value="Tối ưu hóa quảng cáo" name="description">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateProjectImplementation" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="71" name="id">
+                <input type="hidden" value="4" name="so">
+                <input type="hidden" value="3" name="arr_num">
+
+                <h3>Quy trình 4</h3>
+                <input class="form-control" type="text" placeholder="Nhập tiêu quy trình triển khai dự án" value="Giám sát, theo dõi quảng cáo Facebook Ads thường xuyên" name="description">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateProjectImplementation" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="71" name="id">
+                <input type="hidden" value="5" name="so">
+                <input type="hidden" value="4" name="arr_num">
+
+                <h3>Quy trình 5</h3>
+                <input class="form-control" type="text" placeholder="Nhập tiêu quy trình triển khai dự án" value="Báo cáo quảng cáo Facebook chi tiết, minh bạch" name="description">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+
+            <hr color="red">
+
+            <!-- COMMENT TITLE -->
+            <form action="?c=tiktok&a=updateCommentTitle" method="post">
+              <input type="hidden" value="72" name="id">
+              <h2 class="custom-header">Tiêu đề bình luận của khách hàng</h2>
+              <input class="form-control" type="text" placeholder="Nhập tiêu đề bình luận của khách hàng" value="KHÁCH HÀNG NÓI VỀ ORI AGENCY" name="title">
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color='red'>
+
+            <!-- COMMENT -->
+            <h2 class="custom-header">Khách hàng nói gì</h2>
+            <div>(60 x 49px)</div>
+            <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateComment" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <h3>Bình luận khách hàng 1</h3>
+                <input type="hidden" value="1" name="so">
+                <input type="hidden" value="73" name="id">
+                <input type="hidden" value="0" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/quang-cao-tiktok/logo_1641288114_AF9BE0.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="comment_1">
+                  <label class="custom-file-label" for="comment_1">Choose file</label>
+                </div>
+
+                <h3>Tên khách hàng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tên khách hàng" value="Mr. Đinh Hải" name="name">
+
+                <h3>Chức vụ</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập chức vụ khách hàng" value="CEO Quán Nhỏ" name="position">
+
+                <h3>Bình luận</h3>
+                <div class="form-group">
+                  <textarea name="description" class="form-control" id="exampleFormControlTextarea2" rows="3">"Cách làm việc nhân viên tư vấn nhiệt tình, triển khai công việc nhanh, luôn theo sát hiệu quả và đồng hành cùng nhà hàng. Luôn tận tâm với dự án và khách hàng được thể hiện qua các việc tìm hiểu mặt hàng kinh doanh, hiểu về hoạt động của nhà hàng. Phân tích ưu, nhược điểm của nhà hàng từ đó đưa ra chiến lược phát triển phù hợp"</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateComment" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <h3>Bình luận khách hàng 2</h3>
+                <input type="hidden" value="2" name="so">
+                <input type="hidden" value="73" name="id">
+                <input type="hidden" value="1" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/df.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="comment_2">
+                  <label class="custom-file-label" for="comment_2">Choose file</label>
+                </div>
+
+                <h3>Tên khách hàng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tên khách hàng" value="Ms. Thanh Hằng" name="name">
+
+                <h3>Chức vụ</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập chức vụ khách hàng" value="CEO & Founder S Dance" name="position">
+
+                <h3>Bình luận</h3>
+                <div class="form-group">
+                  <textarea name="description" class="form-control" id="exampleFormControlTextarea2" rows="3">"Team Ori trẻ trung, đội ngũ quản trị và vận hành dự án nhiệt tình, xử lý công việc nhanh. Chúc Ori ngày càng thành công để khách hàng cũng phát triển cùng Ori nha"</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateComment" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <h3>Bình luận khách hàng 3</h3>
+                <input type="hidden" value="3" name="so">
+                <input type="hidden" value="73" name="id">
+                <input type="hidden" value="2" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/df1.jpg" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="comment_3">
+                  <label class="custom-file-label" for="comment_3">Choose file</label>
+                </div>
+
+                <h3>Tên khách hàng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tên khách hàng" value="Ms. Bích Huyền" name="name">
+
+                <h3>Chức vụ</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập chức vụ khách hàng" value="CEO Công ty Quốc tế Trà Giang" name="position">
+
+                <h3>Bình luận</h3>
+                <div class="form-group">
+                  <textarea name="description" class="form-control" id="exampleFormControlTextarea2" rows="3">"Tư vấn, lên kế hoạch tận tình, chuyên nghiệp, mang lại kết quả tốt. Đội ngũ nhân sự nhiệt tình, chu đáo và nhanh chóng. Trong suốt thời gian hợp tác, vì rất hài lòng nên chúng tôi đã giới thiệu rất nhiều đối tác cho Ori. Xin cảm ơn và chúc Ori ngày càng phát triển"</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=tiktok&a=updateComment" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <h3>Bình luận khách hàng 4</h3>
+                <input type="hidden" value="4" name="so">
+                <input type="hidden" value="73" name="id">
+                <input type="hidden" value="3" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/df2.jpg" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="comment_4">
+                  <label class="custom-file-label" for="comment_4">Choose file</label>
+                </div>
+
+                <h3>Tên khách hàng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập tên khách hàng" value="Mr. Trung Kiên" name="name">
+
+                <h3>Chức vụ</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập chức vụ khách hàng" value="Founder Vardino" name="position">
+
+                <h3>Bình luận</h3>
+                <div class="form-group">
+                  <textarea name="description" class="form-control" id="exampleFormControlTextarea2" rows="3">"Lần đầu tiên anh làm việc với một bên mà căn từng tý cho khách, chi tiêu hiệu quả như bên Ori. Trước quảng cáo FB anh cũng thuê nhiều bên vì bận nhưng cũng không ăn thua, làm qua loa và không hiệu quả, chỉn chu như bên Ori"</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+
+            <script src="public/js/ckeditor.js"></script>
+
+            <script>
+              let number = 0;
+              document.querySelectorAll('.ckeditor').forEach(function(textarea) {
+                textarea.id = 'editor' + number++;
+
+                // This sample still does not showcase all CKEditor&nbsp;5 features (!)
+                // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+
+                CKEDITOR.ClassicEditor.create(document.getElementById(`${textarea.id}`), {
+                  ckfinder: {
+                    uploadUrl: '?c=ckeditor&a=dashboard_tiktok'
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
+                  toolbar: {
+                    items: [
+                      'exportPDF', 'exportWord', '|',
+                      'findAndReplace', 'selectAll', '|',
+                      'heading', '|',
+                      'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                      'bulletedList', 'numberedList', 'todoList', '|',
+                      'outdent', 'indent', '|',
+                      'undo', 'redo',
+                      '-',
+                      'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                      'alignment', '|',
+                      'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                      'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                      'textPartLanguage', '|',
+                      'sourceEditing',
+                    ],
+                    shouldNotGroupWhenFull: true
+                  },
+                  // Changing the language of the interface requires loading the language file using the <script> tag.
+                  // language: 'es',
+                  list: {
+                    properties: {
+                      styles: true,
+                      startIndex: true,
+                      reversed: true
+                    }
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+                  heading: {
+                    options: [{
+                        model: 'paragraph',
+                        title: 'Paragraph',
+                        class: 'ck-heading_paragraph'
+                      },
+                      {
+                        model: 'heading1',
+                        view: 'h1',
+                        title: 'Heading 1',
+                        class: 'ck-heading_heading1'
+                      },
+                      {
+                        model: 'heading2',
+                        view: 'h2',
+                        title: 'Heading 2',
+                        class: 'ck-heading_heading2'
+                      },
+                      {
+                        model: 'heading3',
+                        view: 'h3',
+                        title: 'Heading 3',
+                        class: 'ck-heading_heading3'
+                      },
+                      {
+                        model: 'heading4',
+                        view: 'h4',
+                        title: 'Heading 4',
+                        class: 'ck-heading_heading4'
+                      },
+                      {
+                        model: 'heading5',
+                        view: 'h5',
+                        title: 'Heading 5',
+                        class: 'ck-heading_heading5'
+                      },
+                      {
+                        model: 'heading6',
+                        view: 'h6',
+                        title: 'Heading 6',
+                        class: 'ck-heading_heading6'
+                      }
+                    ]
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+                  placeholder: 'Welcome to CKEditor 5!',
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+                  fontFamily: {
+                    options: [
+                      'default',
+                      'Arial, Helvetica, sans-serif',
+                      'Courier New, Courier, monospace',
+                      'Georgia, serif',
+                      'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                      'Tahoma, Geneva, sans-serif',
+                      'Times New Roman, Times, serif',
+                      'Trebuchet MS, Helvetica, sans-serif',
+                      'Verdana, Geneva, sans-serif'
+                    ],
+                    supportAllValues: true
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+                  fontSize: {
+                    options: [10, 12, 14, 'default', 18, 20, 22],
+                    supportAllValues: true
+                  },
+                  // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+                  htmlSupport: {
+                    allow: [{
+                      name: /.*/,
+                      attributes: true,
+                      classes: true,
+                      styles: true
+                    }]
+                  },
+                  // Be careful with enabling previews
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+                  htmlEmbed: {
+                    showPreviews: false
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
+                  link: {
+                    decorators: {
+                      addTargetToExternalLinks: true,
+                      defaultProtocol: 'https://',
+                      toggleDownloadable: {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                          download: 'file'
+                        }
+                      }
+                    }
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+                  mention: {
+                    feeds: [{
+                      marker: '@',
+                      feed: [
+                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
+                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
+                        '@sugar', '@sweet', '@topping', '@wafer'
+                      ],
+                      minimumCharacters: 1
+                    }]
+                  },
+                  // The "superbuild" contains more premium features that require additional configuration, disable them below.
+                  // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+                  removePlugins: [
+                    // These two are commercial, but you can try them out without registering to a trial.
+                    // 'ExportPdf',
+                    // 'ExportWord',
+                    'AIAssistant',
+                    'CKBox',
+                    'CKFinder',
+                    'EasyImage',
+                    // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+                    // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+                    // Storing images as Base64 is usually a very bad idea.
+                    // Replace it on production website with other solutions:
+                    // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+                    // 'Base64UploadAdapter',
+                    'MultiLevelList',
+                    'RealTimeCollaborativeComments',
+                    'RealTimeCollaborativeTrackChanges',
+                    'RealTimeCollaborativeRevisionHistory',
+                    'PresenceList',
+                    'Comments',
+                    'TrackChanges',
+                    'TrackChangesData',
+                    'RevisionHistory',
+                    'Pagination',
+                    'WProofreader',
+                    // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+                    // from a local file system (file://) - load this site via HTTP server if you enable MathType.
+                    'MathType',
+                    // The following features are part of the Productivity Pack and require additional license.
+                    'SlashCommand',
+                    'Template',
+                    'DocumentOutline',
+                    'FormatPainter',
+                    'TableOfContents',
+                    'PasteFromOfficeEnhanced',
+                    'CaseChange'
+                  ]
+                });
+              });
+            </script>
+
+            <!-- <script src="../public/vendor/jquery-3.5.1.min.js"></script>
+<script src="../public/vendor/popper.min.js"></script>
+<script src="../public/vendor/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script> -->
+          </div>
+          <!--/. container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer" style="text-align:center;">
+      <strong>Copyright &copy; 2024-2025 <a href="#">Bill Cipher</a>.</strong>
+
+    </footer>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Bạn muốn xóa phải không?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <a href="#" class="btn btn-primary">Xác nhận </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED SCRIPTS -->
+  <!-- <script src="public/vendor/jquery-3.5.1.min.js"></script> -->
+  <!-- <script src="public/vendor/popper.min.js"></script> -->
+  <!-- <script src="public/vendor/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>  -->
+
+
+
+
+  <!-- jQuery -->
+  <script src="public/js/jquery-3.6.0.min.js"></script>
+  <!-- <script src="public/assets/jquery/jquery.min.js"></script> -->
+  <!-- Bootstrap -->
+  <script src="public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="public/assets/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <!-- <script src="public/js/jquery-validation-1.19.5/dist/jquery.validate.min.js"></script> -->
+  <script src="public/js/adminlte.min.js"></script>
+
+  <!-- PAGE PLUGINS -->
+  <!-- jQuery Mapael -->
+  <script src="public/assets/jquery-mousewheel/jquery.mousewheel.js"></script>
+  <script src="public/assets/raphael/raphael.min.js"></script>
+  <script src="public/assets/jquery-mapael/jquery.mapael.min.js"></script>
+  <script src="public/assets/jquery-mapael/maps/usa_states.min.js"></script>
+  <!-- ChartJS -->
+  <script src="public/assets/chart.js/Chart.min.js"></script>
+
+  <!-- AdminLTE for demo purposes -->
+  <script src="public/js/demo.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="public/js/pages/dashboard2.js"></script>
+  <!-- SummerNote -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+  <script src="public/assets/jquery-validation/dist/jquery.validate.min.js"></script>
+
+  <!-- <script src="public/js/ckeditor.js"></script> -->
+
+  <script src="public/js/script.js"></script>
+
+  < /body>
+
+    < /html>

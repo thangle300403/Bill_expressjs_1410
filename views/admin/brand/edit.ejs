@@ -1,0 +1,9 @@
+<form class="create-article" action="/admin/brand/update" method="POST">
+  <input type="hidden" name="id" value="<%= brand.id %>">
+  <h6 class="font-weight-bold">Tên thương hiệu</h6>
+  <input class="form-control form-control-lg" placeholder="Tên thương hiệu" name="name" value="<%= brand.name %>"></input>
+  <br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

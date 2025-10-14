@@ -1,0 +1,209 @@
+ <!-- modal -->
+ <div class="row">
+   <div class="col-12">
+     <div class="card">
+       <div class="card-header">
+
+         <h3 class="card-title">Quản lý đơn hàng</h3>
+         <br>
+         <form action="/admin/order" method="GET">
+           <label class="mr-2">
+             Tìm kiếm theo id:
+             <input type="number" name="search" class="form-control" value="<%= search %>">
+           </label>
+
+           <label class="mr-2">
+             Trạng thái:
+             <select name="statusFilter" class="form-control">
+               <option value="">-- Tất cả --</option>
+               <% for (const status of statuses) { %>
+               <option value="<%= status.id %>" <%= statusFilter == status.id ? "selected" : "" %>>
+                 <%= status.description %>
+               </option>
+               <% } %>
+             </select>
+           </label>
+
+           <button class="btn btn-danger" type="submit">Lọc</button>
+         </form>
+
+
+       </div>
+
+       <!-- /.card-header -->
+       <div class="card">
+
+         <!-- ./card-header -->
+         <div class="card-body">
+           <table class="table table-bordered table-hover">
+             <thead>
+               <tr>
+                 <th></th>
+                 <th>ID</th>
+                 <th>Ngày tạo</th>
+                 <th>Trạng thái đơn hàng</th>
+                 <th>ID khách hàng</th>
+                 <th>Tên khách hàng</th>
+                 <th>Điện thoại giao hàng</th>
+                 <th>Phương thức thanh toán</th>
+                 <th>Địa chỉ giao hàng</th>
+                 <th>Ngày giao hàng</th>
+                 <th></th>
+                 <th></th>
+               </tr>
+             </thead>
+             <tbody>
+               <% for (const order of orders) { %>
+               <tr data-widget="expandable-table" aria-expanded="false">
+                 <td><i class="fas fa-plus expandable-icon"></i></td> <!-- Icon for expand -->
+                 <td><%= order.id %></td>
+                 <td><%= order.created_date %></td>
+                 <td><%= order.status.description %></td>
+                 <td><%= order.customer_id %></td>
+                 <td><%= order.shipping_fullname %></td>
+                 <td><%= order.shipping_mobile %></td>
+                 <td><%= order.payment_method == '0' ? 'COD' : 'Chuyển Khoản' %></td>
+                 <td><%= order.shipping_housenumber_street %></td>
+                 <td><%= order.delivered_date %></td>
+                 <td>
+                   <button type="button" class="btn btn-block btn-info" data-toggle="modal" data-target="#updateModal" data-order-id="<%= order.id %>" data-status-id="<%= order.status.id %>" onclick="setOrderId(this)">
+                     Cập nhật trạng thái
+                   </button>
+                 </td>
+                 <td>
+                   <button data-href="/admin/order/destroy/<%= order.id %>" type="button" class="btn btn-block btn-danger destroy" data-toggle="modal" data-target="#exampleModal">
+                     Xóa
+                   </button>
+                 </td>
+               </tr>
+               <tr class="expandable-body">
+                 <td colspan="11">
+                   <div class="table-responsive">
+                     <table class="table table-hover">
+                       <thead>
+                         <tr>
+                           <th>Hình ảnh sản phẩm</th>
+                           <th>Tên sản phẩm</th>
+                           <th>Số lượng</th>
+                           <th>Đơn giá</th>
+                           <th>Thành tiền</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <%
+                        const orderItems = order.orderItems;
+                        for(const orderItem of orderItems){
+                          const product = orderItem.product;
+                        %>
+                         <tr>
+                           <td><img class="img-responsive" src="../images/<%= product.featured_image %> " style="width: 60px"></td>
+                           <td><%= product.name %></td>
+                           <td><%= orderItem.qty %></td>
+                           <td><%= helpers.formatMoney(orderItem.unit_price) %>₫</td>
+                           <td><%= helpers.formatMoney(orderItem.total_price) %>₫</td>
+                         </tr>
+                         <%}%>
+                       </tbody>
+                     </table>
+                   </div>
+                   <div class="summary">
+                     <p><strong>Tạm tính: </strong><%= helpers.formatMoney(order.total_price) %>₫</p>
+                         <p><strong>Phí vận chuyển: </strong><%= helpers.formatMoney(order.shipping_fee) %>₫</p>
+                         <p><strong>Tổng cộng: </strong><%= helpers.formatMoney(order.total_price + order.shipping_fee) %>₫</p>
+                   </div>
+                 </td>
+               </tr>
+               <% } %>
+             </tbody>
+           </table>
+         </div>
+         <!-- /.card-body -->
+       </div>
+
+       <!-- /.card-body -->
+     </div>
+     <!-- /.card -->
+   </div>
+ </div>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Cập nhật trạng thái đơn hàng</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+
+       <form id="update-status-form" method="POST" action="/admin/order/update">
+         <input type="hidden" name="id" id="order-id" />
+         <div class="modal-body">
+           <div class="custom-radio-group" id="status-options">
+             <% for(const status of statuses) { %>
+             <label class="custom-radio-container">
+               <input type="radio" name="order_status" value="<%= status.id %>" required />
+               <span class="custom-radio-checkmark"></span>
+               <%= status.description %>
+             </label>
+             <% } %>
+           </div>
+
+           <!-- Reason dropdown - show only if cancel selected -->
+           <div id="cancel-reason-container" style="display: none; margin-top: 1em;">
+             <label for="cancel_reason"><strong>Lý do hủy đơn:</strong></label>
+             <select name="cancel_reason" class="form-control">
+               <option value="other">Khác hoặc không có lí do</option>
+               <option value="stock_error">Hết hàng</option>
+               <option value="payment_timeout">Chưa thanh toán</option>
+               <option value="customer_request">Khách yêu cầu huỷ</option>
+               <option value="fraud_detected">Phát hiện gian lận</option>
+               <option value="shipping_issue">Vấn đề giao hàng</option>
+               <option value="product_issue">Hàng có vấn đề trong lúc thử nghiệm</option>
+             </select>
+           </div>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+           <button type="submit" class="btn btn-primary">Cập nhật trạng thái</button>
+         </div>
+       </form>
+
+     </div>
+   </div>
+ </div>
+
+
+ <!-- Paging -->
+ <%- include('../pagination') %>
+ <!-- End paging -->
+
+ <!-- Button trigger modal -->
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Bạn chắc là muốn xóa?</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+         <a type="button" class="btn btn-primary">Có</a>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <script>
+   document.querySelectorAll('input[name="order_status"]').forEach(radio => {
+     radio.addEventListener('change', function() {
+       const cancelReason = document.getElementById('cancel-reason-container');
+       cancelReason.style.display = this.value === '6' ? 'block' : 'none';
+     });
+   });
+ </script>

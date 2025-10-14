@@ -1,0 +1,275 @@
+            
+            
+          Nhấp vào đây để đi đến trang quản lí sản phẩm:
+          <li class="nav-item">
+              <a href="/admin" class="nav-link <%= currentRoute == 'admin' ? 'active' : '' %>">
+                <i class="nav-icon fas fa-box"></i>
+                <p>Quản lý Sản phẩm</p>
+              </a>
+            </li>
+
+Trang quản lí sản phẩm:
+<form class="create-article" action="/admin/product/update" method="POST" enctype="multipart/form-data">
+  <div class="card-header">
+    <h1 class="card-title">Sửa sản phẩm</h1>
+  </div>
+  <input type="hidden" name="id" value="2">
+
+  <h6 class="font-weight-bold">Hình đại diện</h6>
+  <div class="oIContainer">
+    <div>Hình hiện tại:</div>
+    <img id="old-file" class="old-image mb-3" src="/images/sample.png" alt="">
+  </div>
+  <div>Hình muốn đổi:</div>
+  <div class="pIContainer" style="display: none;">
+    <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+  </div>
+
+  <div class="custom-file mb-3" style="width: 100%;">
+    <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="post_img">
+    <label class="custom-file-label" for="post_img">Choose an image</label>
+  </div>
+
+  <h6 class="font-weight-bold">Barcode</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter barcode" name="barcode" value="ABC12345">
+
+  <h6 class="font-weight-bold">SKU</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter SKU" name="sku" value="SKU001">
+
+  <h6 class="font-weight-bold">Tên SP</h6>
+  <input class="form-control form-control-lg" placeholder="Enter product name" name="name" value="Yonex Astrox 100ZZ">
+
+  <h6 class="font-weight-bold">Giá (VND)</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter price" name="price" value="3500000">
+
+  <h6 class="font-weight-bold">Giảm giá (%)</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter discount percentage" name="discount_percentage" value="10">
+
+  <h6 class="font-weight-bold">Ngày bắt đầu giảm giá</h6>
+  <input class="form-control form-control-lg" type="date" name="discount_from_date" value="2025-09-01">
+
+  <h6 class="font-weight-bold">Ngày kết thúc giảm giá</h6>
+  <input class="form-control form-control-lg" type="date" name="discount_to_date" value="2025-09-30">
+
+  <h6 class="font-weight-bold">Số lượng hàng trong kho</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter inventory quantity" name="inventory_qty" value="50">
+
+  <h6 class="font-weight-bold">Mô tả sản phẩm</h6>
+  <textarea class="form-control form-control-lg ckeditor" id="editor" name="description" rows="5">Vợt cầu lông Yonex Astrox 100ZZ cao cấp.</textarea>
+
+  <h6 class="font-weight-bold">Danh mục</h6>
+  <select class="form-control form-control-lg" name="category_id">
+    <option value="1" selected>Vợt cầu lông</option>
+    <option value="2">Giày cầu lông</option>
+    <option value="3">Quần áo</option>
+  </select>
+
+  <h6 class="font-weight-bold">Thương hiệu</h6>
+  <select class="form-control form-control-lg" name="brand_id">
+    <option value="1" selected>Yonex</option>
+    <option value="2">Lining</option>
+    <option value="3">Victor</option>
+  </select>
+
+  <h6 class="font-weight-bold">Nổi bật</h6>
+  <select class="form-control form-control-lg" name="featured">
+    <option value="0">Không nổi bật</option>
+    <option value="1" selected>Nổi bật</option>
+  </select>
+
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>
+
+===============================
+Nhấp vào đây để đi đến trang quản lí phí vận chuyển:
+ <li class="nav-item">
+              <a href="/admin/transport" class="nav-link <%= currentRoute == 'transport' ? 'active' : '' %>">
+                <i class="nav-icon fas fa-truck"></i> <!-- Updated icon for Transport Cost -->
+                <p>Chi phí Vận chuyển</p> <!-- Translated label -->
+              </a>
+            </li>
+
+Trang quản lí phí vận chuyển:
+<form class="create-article" action="/admin/transport/update" method="POST">
+  <input type="hidden" name="id" value="<%= transport.id %>">
+  <h6 class="font-weight-bold">Giá vận chuyển</h6>
+  <input class="form-control form-control-lg" placeholder="Giá vận chuyển" name="price" value="<%= transport.price %>"></input>
+  <br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>
+
+===============================
+Nhấp vào đây để đi đến trang quản lí danh mục sản phẩm:
+<li class="nav-item">
+              <a href="/admin/category" class="nav-link <%= currentRoute == 'category' ? 'active' : '' %>">
+                <i class="nav-icon fas fa-tags"></i>
+                <p>Quản lý Danh mục</p>
+              </a>
+            </li>
+
+Trang quản lí danh mục sản phẩm:
+<form class="create-article" action="/admin/category/update" method="POST">
+  <input type="hidden" name="id" value="<%= category.id %>">
+  <h6 class="font-weight-bold">Tên danh mục</h6>
+  <input class="form-control form-control-lg" placeholder="Tên thương hiệu" name="name" value="<%= category.name %>"></input>
+  <br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>
+
+===============================
+Nhấp vào đây để đi đến trang quản lí đơn hàng:
+<li class="nav-item">
+              <a href="/admin/order" class="nav-link <%= currentRoute == 'order' ? 'active' : '' %>">
+                <i class="nav-icon fas fa-tags"></i>
+                <p>Quản lý đơn hàng</p>
+              </a>
+            </li>
+
+newStatusId list:
+1 = Đã đặt hàng
+2 = Đã xác nhận đơn hàng
+3 = Hoàn tất đóng gói
+4 = Đang giao hàng
+5 = Đã giao hàng
+6 = Đã bị hủy
+
+===============================
+Nhấp vào đây để đi đến trang quản lí trạng thái đơn hàng:
+
+ <li class="nav-item">
+              <a href="/admin/status" class="nav-link <%= currentRoute == 'status' ? 'active' : '' %>">
+                <i class="nav-icon fas fa-clipboard-list"></i>
+                <p>Quản lý trạng thái đơn hàng</p>
+              </a>
+            </li>
+
+<form class="create-article" action="/admin/status/update" method="POST">
+  <input type="hidden" name="id" value="<%= status.id %>">
+  <h6 class="font-weight-bold">Tên trạng thái</h6>
+  <input class="form-control form-control-lg" placeholder="Tên trạng thái" name="name" value="<%= status.name %>"></input>
+  <br>
+  <h6 class="font-weight-bold">Mô tả</h6>
+  <input class="form-control form-control-lg" placeholder="Mô tả" name="description" value="<%= status.description %>"></input>
+  <br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>
+
+===============================
+Nhấp vào đây để đi đến trang quản lí khách hàng:
+ <li class="nav-item">
+              <a href="/admin/customer" class="nav-link <%= currentRoute == 'customer' ? 'active' : '' %>">
+                <i class="nav-icon fas fa-users"></i>
+                <p>Quản lý Khách hàng</p>
+              </a>
+            </li>
+
+
+<form class="create-article" action="/admin/customer/update" method="POST">
+  <div class=" card-header">
+    <h1 class="card-title">Sửa khách hàng</h1>
+  </div>
+  <input type="hidden" name="id" value="<%= customer.id %>">
+
+  <br><br>
+
+  <h6 class="font-weight-bold">Tên khách hàng </h6>
+  <input class="form-control form-control-lg" placeholder="Enter customer name" name="name" value="<%= customer.name %>"></input>
+
+  <br>
+  <!-- CODE BỔ SUNG -->
+  <h6 class="font-weight-bold">Số điện thoại</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter mobile" name="mobile" value="<%= customer.mobile %>">
+  <br>
+
+  <h6 class="font-weight-bold">Email</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter email" name="email" value="<%= customer.email %>">
+
+  <br>
+
+  <h6 class="font-weight-bold">Tên người nhận</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter shipping name" name="shipping_name" value="<%= customer.shipping_name %>">
+  <br>
+
+  <h6 class="font-weight-bold">Số điện thoại người nhận</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter customername" name="shipping_mobile" value="<%= customer.shipping_mobile %>">
+  <br>
+
+  <h6 class="font-weight-bold">Số nhà, đường</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter housenumber_street" name="housenumber_street" value="<%= customer.housenumber_street %>">
+  <br>
+
+  <h6 class="font-weight-bold">Trạng thái</h6>
+
+  <select class="form-control form-control-lg" name="is_active">
+    <option value="0" <%= customer.is_active == 0 ? 'selected' : '' %>>Không hoạt động</option>
+    <option value="1" <%= customer.is_active == 1 ? 'selected' : '' %>>Hoạt động</option>
+  </select>
+  <br><br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>
+
+===============================
+Nhấp vào đây để đi đến trang quản lí nhân viên:
+  <li class="nav-item">
+              <a href="/admin/staff" class="nav-link <%= currentRoute == 'staff' ? 'active' : '' %>">
+                <i class="nav-icon fas fa-user-tie"></i>
+                <p>Quản lý Nhân viên</p>
+              </a>
+            </li>
+
+
+<form class="create-article" action="/admin/staff/update" method="POST">
+  <div class=" card-header">
+    <h1 class="card-title">Sửa nhân viên</h1>
+  </div>
+  <input type="hidden" name="id" value="<%= staff.id %>">
+  <h6 class="font-weight-bold">Vai trò</h6>
+  <select class="form-control form-control-lg" name="role_id">
+    <% roles.forEach((role) => { %>
+    <option value="<%= role.id %>" <%= staff.role_id == role.id ? 'selected' : '' %>><%= role.name %></option>
+    <% }) %>
+  </select>
+
+  <br><br>
+
+  <h6 class="font-weight-bold">Tên nhân viên</h6>
+  <input class="form-control form-control-lg" placeholder="Enter staff name" name="name" value="<%= staff.name %>"></input>
+
+  <br>
+  <!-- CODE BỔ SUNG -->
+  <h6 class="font-weight-bold">Số điện thoại</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter mobile" name="mobile" value="<%= staff.mobile %>">
+  <br>
+
+  <h6 class="font-weight-bold">Email</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter email" name="email" value="<%= staff.email %>">
+
+  <br>
+
+  <h6 class="font-weight-bold">Biệt danh</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter staffname" name="username" value="<%= staff.username %>">
+
+  <br>
+
+
+  <h6 class="font-weight-bold">Trạng thái</h6>
+
+  <select class="form-control form-control-lg" name="is_active">
+    <option value="0" <%= staff.is_active == 0 ? 'selected' : '' %>>Không hoạt động</option>
+    <option value="1" <%= staff.is_active == 1 ? 'selected' : '' %>>Hoạt động</option>
+  </select>
+  <br><br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

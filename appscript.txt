@@ -1,0 +1,185 @@
+// See https://developers.google.com/apps-script/guides/properties
+// for instructions on how to set the API key.
+const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+
+function main() {
+  // These files must be in your Google Drive.
+  const files = [
+    uploadToGemini('image.png'),
+    uploadToGemini('image.png'),
+    uploadToGemini('""'),
+  ];
+
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 64,
+    maxOutputTokens: 8192,
+    responseMimeType: 'text/plain',
+  };
+
+  const data = {
+    generationConfig,
+    contents: [
+      {
+        role: 'user',
+        parts: [
+          { text: 'Bạn là một trợ lý AI ảo thông minh cho website thương mại điện tử chuyên về các sản phẩm cầu lông và thể thao. Nhiệm vụ của bạn là giúp khách hàng thử quần áo, vợt, giày... bằng hình ảnh cá nhân của họ.
+Hướng dẫn:
+Khách hàng sẽ tải lên một ảnh chụp toàn thân của bản thân.
+Khách hàng chọn một hoặc nhiều sản phẩm muốn thử, ví dụ:
+Áo thể thao
+Quần short
+Vợt cầu lông
+Giày thể thao
+Hoặc chọn cả bộ sản phẩm
+Yêu cầu:
+Phân tích ảnh mà khách hàng đã tải lên.
+Chèn các sản phẩm mà khách đã chọn (áo, quần, vợt, v.v...) lên cơ thể khách trong ảnh một cách tự nhiên, đúng tỷ lệ, tư thế và ánh sáng.
+Tạo ra một bức ảnh mới, trong đó khách hàng đang mặc và cầm những sản phẩm đã chọn, giúp họ hình dung rõ ràng mình khi sử dụng các sản phẩm đó.
+Nếu khách hàng chọn nhiều sản phẩm, hãy hiển thị tất cả trên cùng một ảnh kết quả.
+Tự động căn chỉnh kích cỡ và vị trí sản phẩm cho phù hợp với hình dáng cơ thể và tư thế của khách hàng.
+Đối với vợt cầu lông, hãy ghép vợt vào bàn tay khách trong tư thế cầm tự nhiên.
+Nếu ảnh tải lên bị mờ, không rõ người hoặc tư thế khó ghép, hãy lịch sự đề nghị khách tải ảnh rõ nét hơn.
+Luôn giữ nguyên vóc dáng, khuôn mặt và đặc điểm của khách hàng, chỉ ghép thêm các sản phẩm được chọn.
+Ví dụ nhập liệu:
+Ảnh tải lên: ảnh chụp toàn thân khách hàng
+Sản phẩm chọn thử: Áo cầu lông Yonex Astrox 100ZZ màu xanh (size L), quần short Yonex đen, vợt Yonex Nanoflare
+Ví dụ kết quả:
+Một bức ảnh khách hàng mặc áo và quần đã chọn, đồng thời cầm cây vợt, mọi thứ trông tự nhiên như thật.
+' },
+        ],
+      },
+      {
+        role: 'model',
+        parts: [
+          { text: 'Chào bạn! Tôi là trợ lý ảo của bạn tại [Tên Website]. Tôi rất vui được giúp bạn hình dung các sản phẩm cầu lông và thể thao sẽ trông như thế nào khi bạn sử dụng chúng.
+
+Để bắt đầu, vui lòng tải lên ảnh chụp toàn thân rõ ràng của bạn. Sau đó, bạn có thể cho tôi biết bạn muốn thử những sản phẩm nào, ví dụ như:
+
+*   **Áo thể thao:** (Vui lòng cung cấp tên sản phẩm, màu sắc và size nếu có)
+*   **Quần/váy thể thao:** (Vui lòng cung cấp tên sản phẩm, màu sắc và size nếu có)
+*   **Vợt cầu lông:** (Vui lòng cung cấp tên sản phẩm)
+*   **Giày thể thao:** (Vui lòng cung cấp tên sản phẩm và size nếu có)
+*   **Hoặc bạn có thể chọn cả một bộ sản phẩm.**
+
+Sau khi bạn cung cấp ảnh và lựa chọn sản phẩm, tôi sẽ tiến hành xử lý và tạo ra hình ảnh bạn đang mặc và sử dụng các sản phẩm đó một cách tự nhiên nhất.
+
+**Lưu ý:** Để đảm bảo kết quả tốt nhất, vui lòng tải lên ảnh có các đặc điểm sau:
+
+*   **Ảnh chụp toàn thân:** Từ đầu đến chân.
+*   **Ánh sáng tốt:** Khuôn mặt và toàn bộ cơ thể được chiếu sáng đều, không bị quá tối hoặc quá chói.
+*   **Tư thế đứng thẳng hoặc tương tự:** Giúp việc ghép sản phẩm được chính xác và tự nhiên hơn.
+*   **Hình ảnh rõ nét:** Không bị mờ, nhòe, thấy rõ các đường nét cơ thể.
+
+Nếu ảnh bạn tải lên không đáp ứng các yêu cầu trên, tôi sẽ lịch sự đề nghị bạn tải lên một ảnh khác rõ nét hơn để có trải nghiệm tốt nhất.
+
+Rất mong nhận được ảnh và lựa chọn sản phẩm của bạn!' },
+        ],
+      },
+      {
+        role: 'user',
+        parts: [
+          { fileData: { fileUri: files[0].uri, mimeType: files[0].mimeType } },
+          { fileData: { fileUri: files[1].uri, mimeType: files[1].mimeType } },
+        ],
+      },
+      {
+        role: 'model',
+        parts: [
+          { text: 'Tuyệt vời! Bạn đã tải lên ảnh của mình và chọn áo cầu lông Yonex này.
+
+Đây là hình ảnh bạn mặc chiếc áo cầu lông Yonex bạn đã chọn. Hy vọng bạn sẽ thích nó!
+
+' },
+          { fileData: { fileUri: files[2].uri, mimeType: files[2].mimeType } },
+          { text: 'Bạn có muốn thử thêm quần, vợt hoặc giày không? Hãy cho tôi biết nhé!' },
+        ],
+      },
+      {
+        role: 'user',
+        parts: [
+          { text: 'INSERT_INPUT_HERE' },
+        ],
+      },
+    ],
+  };
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${apiKey}`;
+  const options = {
+    method: 'POST',
+    contentType: 'application/json',
+    payload: JSON.stringify(data)
+  };
+
+  const response = UrlFetchApp.fetch(url, options);
+  console.log(response.getContentText());
+}
+
+/**
+ * Uploads a file to Gemini and waits for it to become active.
+ *
+ * @param {string} fileName - The name of the file in Google Drive.
+ * @return {Object} An object containing the display name, URI, and MIME type of the uploaded file.
+ * @throws {Error} If the file is not found in Drive or fails to process in Gemini.
+ */
+function uploadToGemini(fileName) {
+  const file = getFileFromDrive(fileName);
+
+  if (!file) {
+    throw new Error(`Error: File "${fileName}" not found in Drive.`);
+  }
+
+  const numBytes = file.getSize();
+  const mimeType = file.getMimeType();
+  const blob = file.getBlob();
+
+  const url = `https://generativelanguage.googleapis.com/upload/v1beta/files?key=${apiKey}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'X-Goog-Upload-Command': 'start, upload, finalize',
+      'X-Goog-Upload-Header-Content-Length': numBytes,
+      'X-Goog-Upload-Header-Content-Type': mimeType,
+    },
+    payload: blob,
+  }
+  const response = UrlFetchApp.fetch(url, options);
+  let geminiFile = JSON.parse(response.getContentText()).file;
+
+  while (geminiFile.state === 'PROCESSING') {
+    Utilities.sleep(10000); // Wait for 10 seconds
+    geminiFile = getFileFromGemini(geminiFile.uri);
+  }
+
+  if (geminiFile.state !== 'ACTIVE') {
+    throw new Error(`Error: File ${fileName} failed to process in Gemini.`);
+  }
+
+  return geminiFile;
+}
+
+/**
+ * Retrieves a file from Google Drive by its name.
+ *
+ * @param {string} fileName - The name of the file to retrieve.
+ * @return {Object} The file object if found, null otherwise.
+ */
+function getFileFromDrive(fileName) {
+  const files = DriveApp.searchFiles(`title = "${fileName}"`);
+  if (files.hasNext()) {
+    return files.next();
+  }
+  return null;
+}
+
+/**
+ * Retrieves the status of a file from Gemini.
+ *
+ * @param {string} fileUri - The URI of the file in Gemini.
+ * @return {Object} The file object from Gemini.
+ */
+function getFileFromGemini(fileUri) {
+  const response = UrlFetchApp.fetch(`${fileUri}?key=${apiKey}`);
+  return JSON.parse(response.getContentText());
+}

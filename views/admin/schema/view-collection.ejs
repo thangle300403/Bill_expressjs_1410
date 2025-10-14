@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h3>📦 Collection: <%= name %></h3>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Document</th>
+        <th>Metadata</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% results.documents.forEach((doc, idx) => { %>
+      <tr>
+        <td><%= idx + 1 %></td>
+        <td><%= doc %></td>
+        <td><%= JSON.stringify(results.metadatas[idx]) %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

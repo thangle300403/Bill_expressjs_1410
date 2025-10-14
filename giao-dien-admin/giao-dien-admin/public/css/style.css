@@ -1,0 +1,78 @@
+.error {
+    color: red;
+}
+
+input.error {
+    color: black;
+}
+
+.hide_email {
+    display: none;
+}
+
+/* manage_section */
+.btn-custom:not(.btn-custom:last-child) {
+    margin-bottom: 8px;
+}
+
+/* override a user agent CSS stylesheet */
+.overide-body {
+    font-size: 13px;
+}
+
+/* ALL */
+.custom-file,
+input.form-control,
+select.form-control {
+    max-width: 300px;
+}
+
+/* UPDATE */
+/* home */
+
+/* contact */
+.old-image,
+.preview-image {
+    max-width: 300px;
+}
+
+/* CKEDITOR */
+#container {
+    width: 1000px;
+    margin: 20px auto;
+}
+
+.ck-editor__editable[role="textbox"] {
+    /* Editing area */
+    min-height: 200px;
+}
+
+.ck-content .image {
+    /* Block images */
+    max-width: 80%;
+    margin: 20px auto;
+}
+
+.ck-editor__main * {
+    color: black;
+}
+
+.ck-content .text-tiny {
+    font-size: 0.7em;
+}
+
+.ck-content .text-small {
+    font-size: 0.85em;
+}
+
+.ck-content .text-big {
+    font-size: 1.4em;
+}
+
+.ck-content .text-huge {
+    font-size: 1.8em;
+}
+
+.custom-header {
+    font-weight: 700;
+}

@@ -1,0 +1,246 @@
+<section class="content-header">
+  <h1>Thống kê doanh thu</h1>
+</section>
+
+<section class="content">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <p><strong>Tổng doanh thu: </strong> <%= helpers.formatMoney(totalRevenue) %>₫</p>
+        <p><strong>Doanh thu COD (đã giao): </strong> <%= helpers.formatMoney(totalCOD) %>₫</p>
+        <p><strong>Doanh thu chuyển khoản: </strong> <%= helpers.formatMoney(totalBank) %>₫</p>
+      </div>
+
+      <form class="form-inline mb-3" method="GET" action="/admin/revenue">
+        <label class="mr-2">Từ ngày:</label>
+        <input type="date" name="from" class="form-control mr-3" value="<%= from %>">
+
+        <label class="mr-2">Đến ngày:</label>
+        <input type="date" name="to" class="form-control mr-3" value="<%= to %>">
+
+        <button type="submit" class="btn btn-danger">Lọc</button>
+      </form>
+
+      <div class=" mb-3">
+        <a href="/admin/revenue/export/excel" class="btn btn-success">📥 Xuất Excel</a>
+        <button id="downloadChart" class="btn btn-primary my-3">📸 Xuất ảnh biểu đồ</button>
+        <canvas id="revenueChart" height="120"></canvas>
+      </div>
+    </div>
+
+    <!-- COD Revenue Orders -->
+    <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Đơn hàng COD (Đã giao): <%= helpers.formatMoney(totalCOD) %>₫</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>ID đơn hàng</th>
+              <th>Ngày tạo</th>
+              <th>ID khách hàng</th>
+              <th>Khách hàng</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const order of codOrders) { %>
+            <tr data-widget="expandable-table" aria-expanded="false">
+              <td><%= order.id %></td>
+              <td><%= order.created_date %></td>
+              <td><%= order.customer_id %></td>
+              <td><%= order.shipping_fullname %></td>
+              <td><%= helpers.formatMoney(order.orderTotal) %>₫</td>
+              <td><%= order.status.description %></td>
+            </tr>
+            <tr class="expandable-body">
+              <td colspan="11">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Hình ảnh sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%
+                     const orderItems = order.orderItems;
+                     for(const orderItem of orderItems){
+                       const product = orderItem.product;
+                     %>
+                      <tr>
+                        <td><img class="img-responsive" src="../images/<%= product.featured_image %> " style="width: 60px"></td>
+                        <td><%= product.name %></td>
+                        <td><%= orderItem.qty %></td>
+                        <td><%= helpers.formatMoney(orderItem.unit_price) %>₫</td>
+                        <td><%= helpers.formatMoney(orderItem.total_price) %>₫</td>
+                      </tr>
+                      <%}%>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="summary">
+                  <p><strong>Tạm tính: </strong><%= helpers.formatMoney(order.total_price) %>₫</p>
+                      <p><strong>Phí vận chuyển: </strong><%= helpers.formatMoney(order.shipping_fee) %>₫</p>
+                      <p><strong>Tổng cộng: </strong><%= helpers.formatMoney(order.total_price + order.shipping_fee) %>₫</p>
+                </div>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bank Transfer Orders -->
+    <div class="card card-success">
+      <div class="card-header">
+        <h3 class="card-title">Đơn hàng Chuyển khoản: <%= helpers.formatMoney(totalBank) %>₫</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>ID đơn hàng</th>
+              <th>Ngày tạo</th>
+              <th>ID khách hàng</th>
+              <th>Khách hàng</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const order of bankOrders) { %>
+            <tr data-widget="expandable-table" aria-expanded="false">
+              <td><%= order.id %></td>
+              <td><%= order.created_date %></td>
+              <td><%= order.customer_id %></td>
+              <td><%= order.shipping_fullname %></td>
+              <td><%= helpers.formatMoney(order.orderTotal) %>₫</td>
+              <td><%= order.status.description %></td>
+            </tr>
+            <tr class="expandable-body">
+              <td colspan="11">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Hình ảnh sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%
+                     const orderItems = order.orderItems;
+                     for(const orderItem of orderItems){
+                       const product = orderItem.product;
+                     %>
+                      <tr>
+                        <td><img class="img-responsive" src="../images/<%= product.featured_image %> " style="width: 60px"></td>
+                        <td><%= product.name %></td>
+                        <td><%= orderItem.qty %></td>
+                        <td><%= helpers.formatMoney(orderItem.unit_price) %>₫</td>
+                        <td><%= helpers.formatMoney(orderItem.total_price) %>₫</td>
+                      </tr>
+                      <%}%>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="summary">
+                  <p><strong>Tạm tính: </strong><%= helpers.formatMoney(order.total_price) %>₫</p>
+                      <p><strong>Phí vận chuyển: </strong><%= helpers.formatMoney(order.shipping_fee) %>₫</p>
+                      <p><strong>Tổng cộng: </strong><%= helpers.formatMoney(order.total_price + order.shipping_fee) %>₫</p>
+                </div>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const from = "<%= from || '' %>";
+  const to = "<%= to || '' %>";
+  let chartInstance = null;
+
+  fetch(`/admin/revenue/chart-data?from=${from}&to=${to}`)
+    .then(res => res.json())
+    .then(data => {
+      const ctx = document.getElementById('revenueChart').getContext('2d');
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [{
+              label: 'COD',
+              data: data.codValues,
+              backgroundColor: 'rgba(255, 99, 132, 0.7)',
+              stack: 'Revenue'
+            },
+            {
+              label: 'Chuyển khoản',
+              data: data.bankValues,
+              backgroundColor: 'rgba(75, 192, 192, 0.7)',
+              stack: 'Revenue'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Doanh thu theo phương thức thanh toán'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.dataset.label;
+                  const value = context.formattedValue;
+
+                  if (label === 'COD') {
+                    return `COD (Thanh toán khi nhận hàng): ${value}₫`;
+                  } else if (label === 'Chuyển khoản') {
+                    return `Chuyển khoản (Bank transfer): ${value}₫`;
+                  }
+                  return `${label}: ${value}₫`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              stacked: true
+            },
+            y: {
+              stacked: true,
+              beginAtZero: true,
+              ticks: {
+                callback: value => value.toLocaleString() + '₫'
+              }
+            }
+          }
+        }
+      });
+    });
+
+  // Download as image
+  document.getElementById('downloadChart').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = `doanhthu-chart-${Date.now()}.png`;
+    link.href = document.getElementById('revenueChart').toDataURL('image/png');
+    link.click();
+  });
+</script>

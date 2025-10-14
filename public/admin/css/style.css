@@ -1,0 +1,316 @@
+.error {
+    color: red;
+}
+
+input.error {
+    color: black;
+}
+
+.hide_email {
+    display: none;
+}
+
+/* manage_section */
+.btn-custom:not(.btn-custom:last-child) {
+    margin-bottom: 8px;
+}
+
+/* override a user agent CSS stylesheet */
+.overide-body {
+    font-size: 13px;
+}
+
+/* ALL */
+.custom-file,
+input.form-control,
+select.form-control {
+    max-width: 300px;
+}
+
+/* UPDATE */
+/* home */
+
+/* contact */
+.old-image,
+.preview-image {
+    max-width: 300px;
+}
+
+/* CKEDITOR */
+#container {
+    width: 1000px;
+    margin: 20px auto;
+}
+
+.ck-editor__editable[role="textbox"] {
+    /* Editing area */
+    min-height: 200px;
+}
+
+.ck-content .image {
+    /* Block images */
+    max-width: 80%;
+    margin: 20px auto;
+}
+
+.ck-editor__main * {
+    color: black;
+}
+
+.ck-content .text-tiny {
+    font-size: 0.7em;
+}
+
+.ck-content .text-small {
+    font-size: 0.85em;
+}
+
+.ck-content .text-big {
+    font-size: 1.4em;
+}
+
+.ck-content .text-huge {
+    font-size: 1.8em;
+}
+
+.custom-header {
+    font-weight: 700;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    list-style: none;
+  }
+  
+  .pagination span, 
+  .pagination a {
+    padding: 8px 12px;
+    margin: 0 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .pagination span {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  
+  .pagination a:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .pagination a.menu2 {
+    color: #007bff;
+  }
+  
+  .pagination a[rel='nofollow'] {
+    cursor: pointer;
+  }
+  
+  .pagination a[rel='nofollow']:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+
+  .pagination li.active a {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    cursor: default;
+  }
+
+input:-webkit-autofill, 
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px rgb(52, 58, 64) inset !important; /* Override background color */
+    box-shadow: 0 0 0 1000px rgb(52, 58, 64) inset !important; /* Support for other browsers */
+    -webkit-text-fill-color: white !important; /* Override text color */
+}
+
+/* From Uiverse.io by kyle1dev */ 
+.custom-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 320px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.custom-radio-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  font-size: 16px;
+  color: #333333;
+  user-select: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.custom-radio-container:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.custom-radio-container input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+}
+.custom-radio-checkmark {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition:
+    background-color 0.4s ease,
+    transform 0.4s ease;
+  margin-right: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+.custom-radio-container input[type="radio"]:checked + .custom-radio-checkmark {
+  background-color: #ffffff;
+  border-color: #007bff;
+  box-shadow: 0 0 0 8px rgba(0, 123, 255, 0.2);
+  transform: scale(1.2);
+  animation: pulse 0.6s forwards;
+}
+.custom-radio-checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.custom-radio-container
+  input[type="radio"]:checked
+  + .custom-radio-checkmark::after {
+  display: block;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #007bff;
+  transform: translate(-50%, -50%);
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+/* Modal status */
+/* From Uiverse.io by kyle1dev */ 
+.modal-body {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Align children in a column */
+    padding: 20px; /* Add padding around the modal body */
+}
+.custom-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduced gap between options */
+    width: 250px; /* Reduced width to fit better */
+    border-radius: 8px; /* Reduced border radius */
+    background: rgba(203, 193, 193, 0.64);
+    padding: 8px; /* Reduced padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    
+}
+
+.custom-radio-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px; /* Reduced padding for smaller buttons */
+    border-radius: 6px; /* Reduced border radius */
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 14px; /* Reduced font size */
+    color: #333333;
+    user-select: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-radio-container:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02); /* Slightly reduced scale effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.custom-radio-checkmark {
+    position: relative;
+    height: 20px; /* Reduced height */
+    width: 20px; /* Reduced width */
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color 0.4s ease, transform 0.4s ease;
+    margin-right: 8px; /* Reduced margin */
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.custom-radio-container input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+}
+
+.custom-radio-container input[type="radio"]:checked + .custom-radio-checkmark {
+    background-color: #ffffff;
+    border-color: #007bff;
+    box-shadow: 0 0 0 6px rgba(0, 123, 255, 0.2);
+    transform: scale(1.1); /* Slightly reduced scale effect */
+}
+
+.custom-radio-checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-radio-container input[type="radio"]:checked + .custom-radio-checkmark::after {
+    display: block;
+    left: 50%;
+    top: 50%;
+    width: 10px; /* Reduced size of the inner circle */
+    height: 10px; /* Reduced size of the inner circle */
+    border-radius: 50%;
+    background: #007bff;
+    transform: translate(-50%, -50%);
+}
+
+/* checkbox */
+/* end checkbox */
+/* modal stat end */

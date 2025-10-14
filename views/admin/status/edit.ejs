@@ -1,0 +1,12 @@
+<form class="create-article" action="/admin/status/update" method="POST">
+  <input type="hidden" name="id" value="<%= status.id %>">
+  <h6 class="font-weight-bold">Tên trạng thái</h6>
+  <input class="form-control form-control-lg" placeholder="Tên trạng thái" name="name" value="<%= status.name %>"></input>
+  <br>
+  <h6 class="font-weight-bold">Mô tả</h6>
+  <input class="form-control form-control-lg" placeholder="Mô tả" name="description" value="<%= status.description %>"></input>
+  <br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

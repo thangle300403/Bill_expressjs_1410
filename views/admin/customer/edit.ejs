@@ -1,0 +1,45 @@
+<form class="create-article" action="/admin/customer/update" method="POST">
+  <div class=" card-header">
+    <h1 class="card-title">Sửa khách hàng</h1>
+  </div>
+  <input type="hidden" name="id" value="<%= customer.id %>">
+
+  <br><br>
+
+  <h6 class="font-weight-bold">Tên khách hàng </h6>
+  <input class="form-control form-control-lg" placeholder="Enter customer name" name="name" value="<%= customer.name %>"></input>
+
+  <br>
+  <!-- CODE BỔ SUNG -->
+  <h6 class="font-weight-bold">Số điện thoại</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter mobile" name="mobile" value="<%= customer.mobile %>">
+  <br>
+
+  <h6 class="font-weight-bold">Email</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter email" name="email" value="<%= customer.email %>">
+
+  <br>
+
+  <h6 class="font-weight-bold">Tên người nhận</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter shipping name" name="shipping_name" value="<%= customer.shipping_name %>">
+  <br>
+
+  <h6 class="font-weight-bold">Số điện thoại người nhận</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter customername" name="shipping_mobile" value="<%= customer.shipping_mobile %>">
+  <br>
+
+  <h6 class="font-weight-bold">Số nhà, đường</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter housenumber_street" name="housenumber_street" value="<%= customer.housenumber_street %>">
+  <br>
+
+  <h6 class="font-weight-bold">Trạng thái</h6>
+
+  <select class="form-control form-control-lg" name="is_active">
+    <option value="0" <%= customer.is_active == 0 ? 'selected' : '' %>>Không hoạt động</option>
+    <option value="1" <%= customer.is_active == 1 ? 'selected' : '' %>>Hoạt động</option>
+  </select>
+  <br><br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

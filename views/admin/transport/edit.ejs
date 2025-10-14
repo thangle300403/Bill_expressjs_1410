@@ -1,0 +1,9 @@
+<form class="create-article" action="/admin/transport/update" method="POST">
+  <input type="hidden" name="id" value="<%= transport.id %>">
+  <h6 class="font-weight-bold">Giá vận chuyển</h6>
+  <input class="form-control form-control-lg" placeholder="Giá vận chuyển" name="price" value="<%= transport.price %>"></input>
+  <br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

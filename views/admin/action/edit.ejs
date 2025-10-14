@@ -1,0 +1,18 @@
+<form class="create-article" action="/admin/action/update" method="POST">
+  <div class="card-header">
+    <h1 class="card-title">Sửa tác vụ</h1>
+  </div>
+  <input type="hidden" name="id" value="<%= action.id %>">
+  <br><br>
+
+  <h6 class="font-weight-bold">Mã tác vụ</h6>
+  <input class="form-control form-control-lg" placeholder="Enter action name" name="name" value="<%= action.name %>">
+
+  <h6 class="font-weight-bold">Tên tác vụ</h6>
+  <input class="form-control form-control-lg" placeholder="Enter action description" name="description" value="<%= action.description %>">
+
+  <br><br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

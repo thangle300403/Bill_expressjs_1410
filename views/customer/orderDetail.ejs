@@ -1,0 +1,97 @@
+<main id="maincontent" class="page-main">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-9">
+        <ol class="breadcrumb">
+          <li><a href="/" target="_self">Trang chủ</a></li>
+          <li><span>/</span></li>
+          <li class="active"><span>Tài khoản</span></li>
+        </ol>
+      </div>
+      <div class="clearfix"></div>
+
+      <%- include('./accountSidebar.ejs') %>
+
+      <div class="col-md-9 order-info">
+        <div class="row">
+          <div class="col-xs-6">
+            <h4 class="home-title">Đơn hàng #<%= order.id %></h4>
+          </div>
+          <div class="clearfix"></div>
+          <aside class="col-md-7 cart-checkout">
+            <%
+              const orderItems = order.orderItems;
+              for(const orderItem of orderItems){
+                const product = orderItem.product;
+              %>
+            <div class="row">
+              <div class="col-xs-2">
+                <img class="img-responsive" src="../images/<%= product.featured_image %>" alt="<%= product.name %>">
+              </div>
+              <div class="col-xs-7">
+                <a class="product-name" href="<%= helpers.genRouteProductDetail(product) %>"><%= product.name %></a>
+                <br>
+                <span><%= orderItem.qty %></span> x <span><%= helpers.formatMoney(orderItem.unit_price) %>₫</span>
+              </div>
+              <div class="col-xs-3 text-right">
+                <span><%= helpers.formatMoney(orderItem.total_price) %>₫</span>
+              </div>
+            </div>
+            <hr>
+            <%}%>
+
+              <div class="row">
+                <div class="col-xs-6">
+                  Tạm tính
+                </div>
+                <div class="col-xs-6 text-right">
+                 <%= helpers.formatMoney(order.total_price) %>₫
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          Phí vận chuyển
+        </div>
+        <div class="col-xs-6 text-right">
+          <%= helpers.formatMoney(order.shipping_fee) %>₫
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-6">
+          Tổng cộng
+        </div>
+        <div class="col-xs-6 text-right">
+          <%= helpers.formatMoney(order.total_price + order.shipping_fee) %>₫
+        </div>
+      </div>
+      </aside>
+      <div class="ship-checkout col-md-5">
+        <h4>Thông tin giao hàng</h4>
+        <div>
+          Họ và tên: <%= order.shipping_fullname %>
+        </div>
+        <div>
+          Số điện thoại: <%= order.shipping_mobile %>
+        </div>
+        <div>
+          <%= shippingProvince.name %>
+        </div>
+        <div>
+          <%= shippingDistrict.name %>
+        </div>
+        <div>
+          <%= shippingWard.name %>
+        </div>
+        <div>
+          <%= order.shipping_housenumber_street %>
+        </div>
+        <div>
+          Phương thức thanh toán: <%= order.payment === '0' ? 'COD': 'Bank'%>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</main>

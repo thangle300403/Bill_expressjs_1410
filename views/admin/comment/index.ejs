@@ -1,0 +1,244 @@
+ <!-- modal -->
+ <div class="row">
+   <div class="col-12">
+     <div class="card">
+       <div class="card-header">
+         <h3 class="card-title">Quản lý bình luận</h3>
+         <br />
+
+         <button id="chatbotToggle" class="btn btn-info mb-2">
+           🤖 Chatbot
+         </button>
+
+         <form action="/admin/comment" method="GET">
+           <label class="form-inline justify-content-end">
+             Tìm kiếm: <input type="search" name="search" class="form-control" value="<%= search %>">
+             <button class="btn btn-danger" type="submit">Tìm</button>
+           </label>
+         </form>
+       </div>
+
+       <!-- /.card-header -->
+       <div class="card-body table-responsive p-0">
+         <table class="table table-hover text-nowrap">
+           <thead>
+             <tr>
+               <th>ID</th>
+               <th>Mã sản phẩm</th>
+               <th>Email</th>
+               <th>Họ và tên</th>
+               <th>Đánh giá</th>
+               <th>Ngày tạo</th>
+               <th>Mô tả</th>
+               <th></th>
+               <th></th>
+             </tr>
+           </thead>
+           <tbody>
+             <% for (const comment of comments){ %>
+             <tr>
+               <td><%= comment.id %></td>
+               <td><%= comment.product_id %></td>
+               <td><%= comment.email %></td>
+               <td><%= comment.fullname %></td>
+               <td><%= comment.star %></td>
+               <td><%= comment.created_date %></td>
+               <td><%= comment.description %></td>
+               <td>
+                 <button data-href="/admin/comment/destroy/<%= comment.id %>" type="button" class="btn btn-block btn-danger destroy" data-toggle="modal" data-target="#exampleModal">
+                   Xóa
+                 </button>
+               </td>
+             </tr>
+             <%}%>
+             </tbody>
+           </table>
+         </div>
+         <!-- /.card-body -->
+       </div>
+       <!-- /.card -->
+     </div>
+   </div>
+  
+   <!-- Paging -->
+  <%- include('../pagination') %>
+             <!-- End paging -->
+
+             <!-- Button trigger modal -->
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Bạn chắc là muốn xóa?</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                   <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                     <a type="button" class="btn btn-primary">Có</a>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+             <!-- Chatbot Modal -->
+             <div class="modal fade" id="chatbotModal" tabindex="-1" role="dialog" aria-labelledby="chatbotModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-lg" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h5 class="modal-title" id="chatbotModalLabel">🤖 Trợ lý AI Bình Luận</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                   <div class="modal-body" style="padding: 0;">
+                     <div class="chatbot-container" style="
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+">
+                       <div class="chat-header" style="background: #232424; padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+                         <strong>Chatbot Assistant</strong>
+                         <span class="badge badge-success">Online</span>
+                       </div>
+
+                       <div id="chat-window" style="flex: 1; overflow-y: auto; padding: 10px; background: #ffffff; font-size: 15px;">
+                         <div class="text-muted mb-2">Chatbot đã sẵn sàng. Hỏi gì đó như: <i>"Hãy tóm tắt các bình luận gần đây"</i></div>
+                       </div>
+
+                       <div class="chat-box" style="max-height: 500px; overflow-y: auto; padding: 10px; background: #f9f9f9;">
+                       </div>
+
+                       <div style="display: flex; border-top: 1px solid #ddd; padding: 10px;">
+                         <input type="text" id="chat-input" class="form-control" placeholder="Hãy hỏi bất cứ điều gì..." style="flex: 1; margin-right: 10px;">
+                         <button class="btn btn-primary" id="send-btn">Send</button>
+                       </div>
+
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+             <script>
+               const appendMessage = (role, text) => {
+                 const chatWindow = document.getElementById("chat-window");
+                 const bubbleStyle = role === "user" ?
+                   "background: #007bff; color: white; align-self: flex-end;" :
+                   "background: #585858; color: white; align-self: flex-start;";
+
+
+                 const bubble = `
+      <div style="max-width: 80%; margin: 5px 0; padding: 10px 14px; border-radius: 16px; ${bubbleStyle} display: inline-block;">
+        ${text}
+      </div>
+    `;
+
+                 const wrapper = document.createElement("div");
+                 wrapper.style.display = "flex";
+                 wrapper.style.flexDirection = "column";
+                 wrapper.innerHTML = bubble;
+
+                 chatWindow.appendChild(wrapper);
+                 chatWindow.scrollTop = chatWindow.scrollHeight;
+               };
+
+               const showLoader = () => {
+                 const chatWindow = document.getElementById("chat-window");
+                 const loader = document.createElement("div");
+                 loader.id = "loader";
+                 loader.style.cssText = `
+      font-style: italic;
+      color: #888;
+      padding-left: 10px;
+      margin: 5px 0;
+    `;
+                 loader.textContent = "🤖 Bot đang xử lý...";
+                 chatWindow.appendChild(loader);
+                 chatWindow.scrollTop = chatWindow.scrollHeight;
+               };
+
+               const removeLoader = () => {
+                 const loader = document.getElementById("loader");
+                 if (loader) loader.remove();
+               };
+
+               document.getElementById("chatbotToggle").addEventListener("click", async function() {
+                 document.getElementById("chat-window").innerHTML = `
+      <div class="text-muted mb-2">
+        Chatbot đã sẵn sàng. Hỏi gì đó như: <i>"Hãy tóm tắt các bình luận gần đây"</i>
+      </div>`;
+
+                 try {
+                   const res = await fetch("/admin/chatbot/logs");
+                   const data = await res.json();
+
+                   if (data.logs && data.logs.length > 0) {
+                     for (const log of data.logs) {
+                       appendMessage(log.role === "user" ? "user" : "bot", log.content);
+                     }
+                   }
+                 } catch (err) {
+                   appendMessage("bot", "⚠️ Không thể tải lịch sử trò chuyện.");
+                 }
+
+                 $('#chatbotModal').modal('show');
+               });
+
+               document.getElementById("send-btn").addEventListener("click", async function() {
+                 const input = document.getElementById("chat-input");
+                 const message = input.value.trim();
+                 if (!message) return;
+
+                 appendMessage("user", message);
+                 input.value = "";
+
+                 showLoader(); // 👈 Show loading
+
+                 try {
+                   const res = await fetch("/admin/chatbot", {
+                     method: "POST",
+                     headers: {
+                       "Content-Type": "application/json"
+                     },
+                     body: JSON.stringify({
+                       question: message
+                     })
+                   });
+
+                   const data = await res.json();
+                   removeLoader(); // 👈 Remove loading
+                   appendMessage("bot", data.answer);
+
+                   if (Array.isArray(data.flagged) && data.flagged.length > 0) {
+                     const chatWindow = document.getElementById("chat-window");
+
+                     const formHTML = `
+  <div style="background: #fefefe; padding: 10px; border-radius: 10px; margin-top: 5px;">
+    <strong>📌 Bình luận vi phạm:</strong>
+    <ul style="padding-left: 1rem; margin-top: 5px;">
+      ${data.flagged.map(c => `
+        <li><code>ID: ${c.id}</code> — <span class="text-danger">${c.description}</span></li>
+      `).join("")}
+    </ul>
+  </div>
+  `;
+
+                     const wrapper = document.createElement("div");
+                     wrapper.innerHTML = formHTML;
+                     chatWindow.appendChild(wrapper);
+                     chatWindow.scrollTop = chatWindow.scrollHeight;
+                   }
+                 } catch (err) {
+                   removeLoader();
+                   appendMessage("bot", "❌ Đã xảy ra lỗi khi gọi trợ lý.");
+                 }
+               });
+             </script>

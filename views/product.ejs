@@ -1,0 +1,32 @@
+<div class="product-container">
+  <div class="image">
+    <img class="img-responsive" src="/images/<%= product.featured_image %>" alt="">
+  </div>
+  <div class="product-meta">
+    <h5 class="name">
+      <a class="product-name" href="<%= helpers.genRouteProductDetail(product) %>" title="<%= product.name%>">
+        <%= product.name%>
+      </a>
+    </h5>
+    <div class="product-item-price">
+      <% if (product.price != product.sale_price){ %>
+      <span class="product-item-regular"><%= helpers.formatMoney(product.price) %></span>
+      <% } %>
+      <span class="product-item-discount"><%= helpers.formatMoney(product.sale_price) %></span>
+    </div>
+  </div>
+  <div class="button-product-action clearfix">
+    <%if(product.inventory_qty > 0){%>
+    <div class="cart icon">
+      <a class="btn btn-outline-inverse buy" product-id="<%= product.id %>" href="javascript:void(0)" title="Thêm vào giỏ">
+        Thêm vào giỏ <i class="fa fa-shopping-cart"></i>
+      </a>
+    </div>
+    <%}%>
+      <div class="quickview icon">
+        <a class="btn btn-outline-inverse" href="<%= helpers.genRouteProductDetail(product) %>" title="Xem nhanh">
+    Xem chi tiết <i class="fa fa-eye"></i>
+    </a>
+  </div>
+</div>
+</div>

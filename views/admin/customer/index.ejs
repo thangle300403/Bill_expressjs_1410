@@ -1,0 +1,157 @@
+              <!-- modal -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Quản lý khách hàng</h3>
+
+                      <form action="/admin/customer" method="GET" class="form-inline justify-content-end">
+                        <label class="mr-2">Tìm kiếm:</label>
+                        <input type="search" name="search" class="form-control mr-2" value="<%= search || '' %>">
+
+                        <label class="mr-2">Phân loại:</label>
+                        <select name="tier" class="form-control mr-2">
+                          <option value="">Tất cả</option>
+                          <option value="Đồng" <%= tier === 'Đồng' ? 'selected' : '' %>>🥉 Đồng</option>
+                          <option value="Bạc" <%= tier === 'Bạc' ? 'selected' : '' %>>🥈 Bạc</option>
+                          <option value="Vàng" <%= tier === 'Vàng' ? 'selected' : '' %>>🥇 Vàng</option>
+                        </select>
+
+                        <button class="btn btn-danger" type="submit">Lọc</button>
+                      </form>
+
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                      <table class="table table-hover text-nowrap">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Tên người nhận</th>
+                            <th>Số điện thoại người nhận</th>
+                            <th>Số nhà, đường</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <% for (const customer of customers){ %>
+                          <% 
+  let tierClass = 'badge-secondary', tier = '🥉 Đồng';
+  if (customer.totalOrders >= 10 || customer.totalSpent >= 16000000) {
+    tier = '🥇 Vàng';
+    tierClass = 'badge-warning'; 
+  } else if (customer.totalOrders >= 5) {
+    tier = '🥈 Bạc';
+    tierClass = 'badge-info';
+  }
+%>
+                          <tr data-widget="expandable-table" aria-expanded="false">
+                            <td><%= customer.id %></td>
+                            <td>
+                              <%= customer.name %>
+                              <span class="badge <%= tierClass %>"><%= tier %></span>
+                            </td>
+                            <td><%= customer.mobile %></td>
+                            <td><%= customer.email %></td>
+                            <td><%= customer.shipping_name %></td>
+                            <td><%= customer.shipping_mobile %></td>
+                            <td><%= customer.housenumber_street %></td>
+                            <td><%= customer.is_active == '1' ? 'Hoạt động' : 'Không hoạt động' %></td>
+                            <td><a class="btn btn-info btn-block" href="/admin/customer/edit/<%= customer.id %>/">Sửa</a></td>
+                            <td>
+                              <button data-href="/admin/customer/destroy/<%= customer.id %>" type="button" class="btn btn-danger btn-block destroy" data-toggle="modal" data-target="#exampleModal">Xóa</button>
+                            </td>
+                          </tr>
+
+                          <tr class="expandable-body bg-light">
+                            <td colspan="10">
+                              <p><strong>Tổng số đơn hàng: <%= customer.totalOrders %></strong></p>
+                              <p><strong>Tổng chi tiêu:</strong> <%= helpers.formatMoney(customer.totalSpent) %>₫</p>
+
+                              <% if (customer.lastOrderDate) { %>
+                              <p>🕒 Đơn hàng gần nhất: <%= customer.lastOrderDate %></p>
+                              <% } else { %>
+                              <small class="text">❌ Chưa có đơn hàng</small>
+                              <% } %>
+
+                              <% if (customer.orders.length === 0) { %>
+                              <p>Không có đơn hàng nào.</p>
+                              <% } else { %>
+                              <% for (const order of customer.orders) { %>
+
+                              <div class="mb-3 p-2 border border-secondary rounded bg-white shadow-sm">
+                                <strong>Đơn hàng #<%= order.id %> - Ngày: <%= order.created_date %></strong>
+                                <div class="table-responsive">
+                                  <table class="table table-bordered mt-2">
+                                    <thead>
+                                      <tr>
+                                        <th>Hình ảnh sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn giá</th>
+                                        <th>Thành tiền</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <% for (const orderItem of order.orderItems) {
+                                                 const product = orderItem.product;
+                                            %>
+                                      <tr>
+                                        <td><img src="/images/<%= product.featured_image %>" style="width: 60px;"></td>
+                                        <td><%= product.name %></td>
+                                        <td><%= orderItem.qty %></td>
+                                        <td><%= helpers.formatMoney(orderItem.unit_price) %>₫</td>
+                                        <td><%= helpers.formatMoney(orderItem.total_price) %>₫</td>
+                                      </tr>
+                                      <% } %>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="summary">
+                                  <p><strong>Tạm tính:</strong> <%= helpers.formatMoney(order.total_price) %>₫</p>
+                                  <p><strong>Phí vận chuyển:</strong> <%= helpers.formatMoney(order.shipping_fee) %>₫</p>
+                                  <p><strong>Tổng cộng:</strong> <%= helpers.formatMoney(order.total_price + order.shipping_fee) %>₫</p>
+                                </div>
+                              </div>
+                              <% } %>
+                              <% } %>
+                            </td>
+                          </tr>
+                          <% } %>
+                        </tbody>
+
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paging -->
+              <%- include('../pagination') %>
+              <!-- End paging -->
+
+              <!-- Button trigger modal -->
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Bạn chắc là muốn xóa?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                      <a type="button" class="btn btn-primary">Có</a>
+                    </div>
+                  </div>
+                </div>
+              </div>

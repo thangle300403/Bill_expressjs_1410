@@ -1,0 +1,363 @@
+  
+  -- Table: action
+  CREATE TABLE \`action\` (
+    \`id\` int(11) NOT NULL,
+    \`name\` varchar(100) NOT NULL,
+    \`description\` varchar(100) NOT NULL,
+    PRIMARY KEY (\`id\`)
+  );
+  
+  -- Table: brand
+  CREATE TABLE \`brand\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`name\` varchar(200) NOT NULL,
+    \`brand_image\` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (\`id\`)
+  );
+
+  INSERT INTO \`brand\` (\`id\`, \`name\`, \`brand_image\`) VALUES
+(1, 'Asicsac', 'asics.png'),
+(4, 'Yonex', 'yonex.png'),
+(5, 'Lining', 'lining.png'),
+(7, 'Victor', 'victor.png'),
+(11, 'Mizuno', NULL);
+  
+  -- Table: category
+  CREATE TABLE \`category\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`name\` varchar(200) NOT NULL,
+    PRIMARY KEY (\`id\`)
+  );
+
+  INSERT INTO \`category\` (\`id\`, \`name\`) VALUES
+(1, 'Giày cầu lông'),
+(2, 'Áo cầu lông'),
+(3, 'Quần/váy cầu lông'),
+(4, 'Túi vợt cầu lông'),
+(5, 'Balo cầu lông'),
+(6, 'Ống cầu lông'),
+(15, 'Vợt cầu lông'),
+(24, 'Phụ kiện cầu lông');
+
+  
+  -- Table: comment
+  CREATE TABLE \`comment\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`product_id\` int(11) NOT NULL,
+    \`email\` varchar(100) NOT NULL,
+    \`fullname\` varchar(100) NOT NULL,
+    \`star\` float NOT NULL,
+    \`created_date\` datetime NOT NULL,
+    \`description\` text DEFAULT NULL,
+    PRIMARY KEY (\`id\`),
+    KEY \`product_id\` (\`product_id\`)
+  );
+  
+  -- Table: customer
+  CREATE TABLE \`customer\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`name\` varchar(100) NOT NULL,
+    \`password\` varchar(61) NOT NULL,
+    \`mobile\` varchar(15) NOT NULL,
+    \`email\` varchar(100) NOT NULL,
+    \`login_by\` varchar(20) NOT NULL,
+    \`ward_id\` varchar(5) DEFAULT NULL,
+    \`shipping_name\` varchar(200) NOT NULL,
+    \`shipping_mobile\` varchar(15) NOT NULL,
+    \`housenumber_street\` varchar(200) DEFAULT NULL,
+    \`is_active\` tinyint(4) NOT NULL DEFAULT 0,
+    PRIMARY KEY (\`id\`),
+    UNIQUE KEY \`email\` (\`email\`),
+    KEY \`ward_id\` (\`ward_id\`)
+  );
+  
+  -- Table: district
+  CREATE TABLE \`district\` (
+    \`id\` varchar(5) NOT NULL,
+    \`name\` varchar(100) NOT NULL,
+    \`type\` varchar(30) NOT NULL,
+    \`province_id\` varchar(5) NOT NULL,
+    PRIMARY KEY (\`id\`),
+    KEY \`province_id\` (\`province_id\`)
+  );
+  
+  -- Table: image_item
+  CREATE TABLE \`image_item\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`product_id\` int(11) NOT NULL,
+    \`name\` varchar(100) NOT NULL,
+    PRIMARY KEY (\`id\`),
+    KEY \`product_id\` (\`product_id\`)
+  );
+  
+  -- Table: newsletter
+  CREATE TABLE \`newsletter\` (
+    \`email\` varchar(100) NOT NULL,
+    PRIMARY KEY (\`email\`)
+  );
+  
+  -- Table: order
+  CREATE TABLE \`order\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`created_date\` datetime NOT NULL,
+    \`order_status_id\` int(2) NOT NULL,
+    \`staff_id\` int(10) DEFAULT NULL,
+    \`customer_id\` int(10) NOT NULL,
+    \`shipping_fullname\` varchar(100) NOT NULL,
+    \`shipping_mobile\` varchar(15) NOT NULL,
+    \`payment_method\` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:COD, 1: bank',
+    \`shipping_ward_id\` varchar(5) DEFAULT NULL,
+    \`shipping_housenumber_street\` varchar(200) NOT NULL,
+    \`shipping_fee\` int(11) DEFAULT 0,
+    \`delivered_date\` date DEFAULT NULL,
+    PRIMARY KEY (\`id\`),
+    KEY \`order_order_status_fk_1\` (\`order_status_id\`),
+    KEY \`order_staff_fk_1\` (\`staff_id\`),
+    KEY \`order_customer_fk_1\` (\`customer_id\`),
+    KEY \`shipping_ward\` (\`shipping_ward_id\`)
+  );
+  
+  -- Table: order_item
+  CREATE TABLE \`order_item\` (
+    \`product_id\` int(10) NOT NULL,
+    \`order_id\` int(10) NOT NULL,
+    \`qty\` int(4) NOT NULL,
+    \`unit_price\` int(11) NOT NULL,
+    \`total_price\` int(10) NOT NULL,
+    PRIMARY KEY (\`product_id\`,\`order_id\`),
+    KEY \`order_item_product_fk_1\` (\`product_id\`),
+    KEY \`order_item_order_fk_1\` (\`order_id\`)
+  );
+  
+  -- Table: product
+  CREATE TABLE \`product\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`barcode\` varchar(13) NOT NULL,
+    \`sku\` varchar(20) NOT NULL,
+    \`name\` varchar(300) NOT NULL,
+    \`price\` int(11) NOT NULL,
+    \`discount_percentage\` int(11) NOT NULL,
+    \`discount_from_date\` date NOT NULL,
+    \`discount_to_date\` date NOT NULL,
+    \`featured_image\` varchar(100) NOT NULL,
+    \`inventory_qty\` int(11) NOT NULL,
+    \`category_id\` int(11) NOT NULL,
+    \`brand_id\` int(11) DEFAULT NULL,
+    \`created_date\` datetime NOT NULL,
+    \`description\` text NOT NULL,
+    \`star\` float DEFAULT NULL,
+    \`featured\` tinyint(1) DEFAULT NULL COMMENT '1: nổi bật',
+    PRIMARY KEY (\`id\`),
+    UNIQUE KEY \`barcode\` (\`barcode\`),
+    KEY \`product_category_fk_1\` (\`category_id\`),
+    KEY \`brand_id\` (\`brand_id\`)
+  );
+  
+  -- Table: province
+  CREATE TABLE \`province\` (
+    \`id\` varchar(5) NOT NULL,
+    \`name\` varchar(100) NOT NULL,
+    \`type\` varchar(30) NOT NULL,
+    PRIMARY KEY (\`id\`)
+  );
+
+  INSERT INTO \`province\` (\`id\`, \`name\`, \`type\`) VALUES
+('01', 'Thành phố Hà Nội', 'Thành phố Trung ương'),
+('02', 'Tỉnh Hà Giang', 'Tỉnh'),
+('04', 'Tỉnh Cao Bằng', 'Tỉnh'),
+('06', 'Tỉnh Bắc Kạn', 'Tỉnh'),
+('08', 'Tỉnh Tuyên Quang', 'Tỉnh'),
+('10', 'Tỉnh Lào Cai', 'Tỉnh'),
+('11', 'Tỉnh Điện Biên', 'Tỉnh'),
+('12', 'Tỉnh Lai Châu', 'Tỉnh'),
+('14', 'Tỉnh Sơn La', 'Tỉnh'),
+('15', 'Tỉnh Yên Bái', 'Tỉnh'),
+('17', 'Tỉnh Hoà Bình', 'Tỉnh'),
+('19', 'Tỉnh Thái Nguyên', 'Tỉnh'),
+('20', 'Tỉnh Lạng Sơn', 'Tỉnh'),
+('22', 'Tỉnh Quảng Ninh', 'Tỉnh'),
+('24', 'Tỉnh Bắc Giang', 'Tỉnh'),
+('25', 'Tỉnh Phú Thọ', 'Tỉnh'),
+('26', 'Tỉnh Vĩnh Phúc', 'Tỉnh'),
+('27', 'Tỉnh Bắc Ninh', 'Tỉnh'),
+('30', 'Tỉnh Hải Dương', 'Tỉnh'),
+('31', 'Thành phố Hải Phòng', 'Thành phố Trung ương'),
+('33', 'Tỉnh Hưng Yên', 'Tỉnh'),
+('34', 'Tỉnh Thái Bình', 'Tỉnh'),
+('35', 'Tỉnh Hà Nam', 'Tỉnh'),
+('36', 'Tỉnh Nam Định', 'Tỉnh'),
+('37', 'Tỉnh Ninh Bình', 'Tỉnh'),
+('38', 'Tỉnh Thanh Hóa', 'Tỉnh'),
+('40', 'Tỉnh Nghệ An', 'Tỉnh'),
+('42', 'Tỉnh Hà Tĩnh', 'Tỉnh'),
+('44', 'Tỉnh Quảng Bình', 'Tỉnh'),
+('45', 'Tỉnh Quảng Trị', 'Tỉnh'),
+('46', 'Tỉnh Thừa Thiên Huế', 'Tỉnh'),
+('48', 'Thành phố Đà Nẵng', 'Thành phố Trung ương'),
+('49', 'Tỉnh Quảng Nam', 'Tỉnh'),
+('51', 'Tỉnh Quảng Ngãi', 'Tỉnh'),
+('52', 'Tỉnh Bình Định', 'Tỉnh'),
+('54', 'Tỉnh Phú Yên', 'Tỉnh'),
+('56', 'Tỉnh Khánh Hòa', 'Tỉnh'),
+('58', 'Tỉnh Ninh Thuận', 'Tỉnh'),
+('60', 'Tỉnh Bình Thuận', 'Tỉnh'),
+('62', 'Tỉnh Kon Tum', 'Tỉnh'),
+('64', 'Tỉnh Gia Lai', 'Tỉnh'),
+('66', 'Tỉnh Đắk Lắk', 'Tỉnh'),
+('67', 'Tỉnh Đắk Nông', 'Tỉnh'),
+('68', 'Tỉnh Lâm Đồng', 'Tỉnh'),
+('70', 'Tỉnh Bình Phước', 'Tỉnh'),
+('72', 'Tỉnh Tây Ninh', 'Tỉnh'),
+('74', 'Tỉnh Bình Dương', 'Tỉnh'),
+('75', 'Tỉnh Đồng Nai', 'Tỉnh'),
+('77', 'Tỉnh Bà Rịa - Vũng Tàu', 'Tỉnh'),
+('79', 'Thành phố Hồ Chí Minh', 'Thành phố Trung ương'),
+('80', 'Tỉnh Long An', 'Tỉnh'),
+('82', 'Tỉnh Tiền Giang', 'Tỉnh'),
+('83', 'Tỉnh Bến Tre', 'Tỉnh'),
+('84', 'Tỉnh Trà Vinh', 'Tỉnh'),
+('86', 'Tỉnh Vĩnh Long', 'Tỉnh'),
+('87', 'Tỉnh Đồng Tháp', 'Tỉnh'),
+('89', 'Tỉnh An Giang', 'Tỉnh'),
+('91', 'Tỉnh Kiên Giang', 'Tỉnh'),
+('92', 'Thành phố Cần Thơ', 'Thành phố Trung ương'),
+('93', 'Tỉnh Hậu Giang', 'Tỉnh'),
+('94', 'Tỉnh Sóc Trăng', 'Tỉnh'),
+('95', 'Tỉnh Bạc Liêu', 'Tỉnh'),
+('96', 'Tỉnh Cà Mau', 'Tỉnh');
+  
+  -- Table: role
+  CREATE TABLE \`role\` (
+    \`id\` int(3) NOT NULL AUTO_INCREMENT,
+    \`name\` varchar(100) NOT NULL,
+    PRIMARY KEY (\`id\`)
+  );
+  
+  -- Table: role_action
+  CREATE TABLE \`role_action\` (
+    \`role_id\` int(11) NOT NULL,
+    \`action_id\` int(11) NOT NULL,
+    PRIMARY KEY (\`role_id\`,\`action_id\`),
+    KEY \`role_action_role_fk_1\` (\`role_id\`),
+    KEY \`role_action_action_fk_1\` (\`action_id\`)
+  );
+  
+  -- Table: staff
+  CREATE TABLE \`staff\` (
+    \`id\` int(11) NOT NULL AUTO_INCREMENT,
+    \`role_id\` int(11) NOT NULL,
+    \`name\` varchar(100) NOT NULL,
+    \`mobile\` varchar(15) NOT NULL,
+    \`username\` varchar(100) NOT NULL,
+    \`password\` varchar(61) NOT NULL,
+    \`email\` varchar(100) NOT NULL,
+    \`is_active\` tinyint(4) NOT NULL DEFAULT 1,
+    PRIMARY KEY (\`id\`),
+    UNIQUE KEY \`username\` (\`username\`,\`email\`),
+    UNIQUE KEY \`email\` (\`email\`),
+    UNIQUE KEY \`username_2\` (\`username\`),
+    KEY \`staff_role_fk_1\` (\`role_id\`)
+  );
+  
+  -- Table: status
+  CREATE TABLE \`status\` (
+    \`id\` int(2) NOT NULL AUTO_INCREMENT,
+    \`name\` varchar(50) NOT NULL,
+    \`description\` varchar(100) NOT NULL,
+    PRIMARY KEY (\`id\`)
+  );
+
+  INSERT INTO \`status\` (\`id\`, \`name\`, \`description\`) VALUES
+(1, 'ordered', 'Đã đặt hàng '),
+(2, 'confirmed', 'Đã xác nhận đơn hàng'),
+(3, 'packaged', 'Hoàn tất đóng gói'),
+(4, 'shipping', 'Đang giao hàng'),
+(5, 'delivered', 'Đã giao hàng'),
+(6, 'canceled', 'Đã bị hủy');
+  
+  -- Table: transport
+  CREATE TABLE \`transport\` (
+    \`id\` int(10) NOT NULL AUTO_INCREMENT,
+    \`province_id\` varchar(5) DEFAULT NULL,
+    \`price\` int(10) NOT NULL,
+    PRIMARY KEY (\`id\`),
+    KEY \`transport_province_id\` (\`province_id\`)
+  );
+
+  INSERT INTO \`transport\` (\`id\`, \`province_id\`, \`price\`) VALUES
+(1, '01', 20001),
+(2, '02', 50000),
+(3, '04', 50000),
+(4, '06', 50000),
+(5, '08', 50001),
+(6, '10', 50000),
+(7, '11', 50000),
+(8, '12', 50000),
+(9, '14', 50000),
+(10, '15', 50000),
+(11, '17', 50000),
+(12, '19', 50000),
+(13, '20', 50000),
+(14, '22', 50000),
+(15, '24', 50000),
+(16, '25', 50000),
+(17, '26', 50000),
+(18, '27', 50000),
+(19, '30', 50000),
+(20, '31', 50000),
+(21, '33', 50000),
+(22, '34', 50000),
+(23, '35', 50000),
+(24, '36', 50000),
+(25, '37', 50000),
+(26, '38', 50000),
+(27, '40', 50000),
+(28, '42', 50000),
+(29, '44', 50000),
+(30, '45', 50000),
+(31, '46', 50000),
+(32, '48', 50000),
+(33, '49', 50000),
+(34, '51', 50000),
+(35, '52', 50000),
+(36, '54', 50000),
+(37, '56', 50000),
+(38, '58', 50000),
+(39, '60', 50000),
+(40, '62', 50000),
+(41, '64', 50000),
+(42, '66', 50000),
+(43, '67', 50000),
+(44, '68', 50000),
+(45, '70', 50000),
+(46, '72', 50000),
+(47, '74', 50000),
+(48, '75', 50000),
+(49, '77', 50000),
+(50, '79', 50000),
+(51, '80', 50000),
+(52, '82', 50000),
+(53, '83', 50000),
+(54, '84', 50000),
+(55, '86', 50000),
+(56, '87', 50000),
+(57, '89', 50000),
+(58, '91', 50000),
+(59, '92', 40000),
+(60, '93', 50000),
+(61, '94', 50000),
+(62, '95', 50000),
+(63, '96', 50000);
+  
+  -- Table: ward
+  CREATE TABLE \`ward\` (
+    \`id\` varchar(5) NOT NULL,
+    \`name\` varchar(100) NOT NULL,
+    \`type\` varchar(30) NOT NULL,
+    \`district_id\` varchar(5) NOT NULL,
+    PRIMARY KEY (\`id\`),
+    KEY \`district_id\` (\`district_id\`)
+  );
+
+// docker pull chromadb/chroma
+// docker run -p 8000:8000 chromadb/chroma

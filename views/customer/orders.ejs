@@ -1,0 +1,66 @@
+<main id="maincontent" class="page-main">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-9">
+        <ol class="breadcrumb">
+          <li><a href="/" target="_self">Trang chủ</a></li>
+          <li><span>/</span></li>
+          <li class="active"><span>Tài khoản</span></li>
+        </ol>
+      </div>
+      <div class="clearfix"></div>
+
+      <%- include('./accountSidebar.ejs') %>
+
+      <div class="col-md-9 order">
+        <div class="row">
+          <div class="col-xs-6">
+            <h4 class="home-title">Đơn hàng của tôi</h4>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-md-12">
+            <!-- Mỗi đơn hàng -->
+            <% for (const order of orders) { %>
+            <div class="order-item">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5>Đơn hàng <a href="<%= helpers.genRouteOrderDetail(order) %>">#<%= order.id %></a></h5>
+                  <span class="date">Đặt hàng ngày <%= order.created_date %> </span>
+                  <hr>
+
+                  <% for (const orderItem of order.orderItems) { 
+                        const product = orderItem.product; %>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="../images/<%= product.featured_image %>" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-md-3">
+                      <a class="product-name" href="<%= helpers.genRouteProductDetail(product) %>">
+                        <%= product.name %>
+                      </a>
+                    </div>
+                    <div class="col-md-2">
+                      Số lượng: <%= orderItem.qty %>
+                    </div>
+                    <div class="col-md-2">
+                      Trạng thái: <%= order.status.description%>
+                    </div>
+                    <div class="col-md-3">
+                      Giao hàng ngày <%= order.delivered_date %>
+                    </div>
+                  </div>
+                  <% } %>
+
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

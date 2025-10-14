@@ -1,0 +1,73 @@
+@startuml
+actor Customer
+participant "Browser" as Browser
+participant "Online Platform" as Platform
+participant "Database" as DB
+participant "Chatbot Service" as Chatbot
+participant "VR Engine" as VR
+
+== General Use Cases ==
+Customer -> Browser: Navigate to Home Page
+Browser -> Platform: Request Home Page
+Platform --> Browser: Display Home Page
+
+Customer -> Browser: Fill Contact Form
+Browser -> Platform: Send Contact Form Details
+Platform -> Database: Save contact message
+Platform --> Browser: Confirmation Message
+
+Customer -> Browser: Register with email and password
+Browser -> Platform: Send registration details
+Platform -> DB: Save customer data
+DB --> Platform: Registration Successful
+Platform --> Browser: Display Success Message
+
+== Cart Operations ==
+Customer -> Browser: Add to Cart
+Browser -> Platform: Send item details
+Platform -> DB: Save item in cart
+Platform --> Browser: Update Cart Display
+
+Customer -> Browser: Update Cart
+Browser -> Platform: Send updated cart details
+Platform -> DB: Update cart in database
+Platform --> Browser: Display Updated Cart
+
+Customer -> Browser: Checkout
+Browser -> Platform: Send checkout details
+Platform -> DB: Save order details
+Platform --> Browser: Order Confirmation Page
+
+== Account Operations ==
+Customer -> Browser: Login with email and password
+Browser -> Platform: Send login credentials
+Platform -> DB: Verify customer credentials
+DB --> Platform: Customer Verified
+Platform --> Browser: Display Account Dashboard
+
+Customer -> Browser: View Account Info
+Browser -> Platform: Request account details
+Platform -> DB: Fetch account data
+DB --> Platform: Return account data
+Platform --> Browser: Display Account Info
+
+Customer -> Browser: View Orders
+Browser -> Platform: Request order history
+Platform -> DB: Fetch order details
+DB --> Platform: Return order history
+Platform --> Browser: Display Order List
+
+== Chatbot Interaction ==
+Customer -> Browser: Open Chatbot
+Browser -> Platform: Send chatbot request
+Platform -> Chatbot: Send customer message
+Chatbot --> Platform: Return AI response
+Platform --> Browser: Display Chatbot Response
+
+== VR Shirt Try-On ==
+Customer -> Browser: Try On Shirt
+Browser -> Platform: Send pose or dimensions
+Platform -> VR: Process virtual try-on data
+VR --> Platform: Generate virtual try-on results
+Platform --> Browser: Display Virtual Try-On Results
+@enduml

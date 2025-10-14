@@ -1,0 +1,65 @@
+[consult]
+tư vấn sản phẩm cầu lông
+gợi ý vợt cho người mới
+cho tôi lời khuyên mua vợt astrox
+nên chọn giày yonex nào để tập luyện
+mẫu áo cầu lông nào hợp với nam
+hãy đề xuất quần áo thi đấu
+gợi ý balo đựng vợt tốt
+nên chọn vợt thiên công hay cân bằng
+tôi muốn mua giày phù hợp sân thảm
+cho tôi tư vấn chọn lưới cầu lông
+hãy gợi ý sản phẩm trong tầm giá 1 triệu
+có loại vợt nào nhẹ cho nữ không
+mẫu giày nào hợp cho người chơi phong trào
+thêm vợt vào giỏ hàng
+tôi muốn mua thêm áo cầu lông
+
+[policy]
+chính sách đổi trả hàng
+chính sách bảo hành sản phẩm
+chính sách vận chuyển hiện tại thế nào
+cửa hàng có chính sách hoàn tiền không
+quy định khi trả hàng lỗi
+chính sách đổi size quần áo
+chính sách bảo mật thông tin cá nhân
+có thể hủy đơn sau khi đặt không
+chính sách thanh toán khi nhận hàng
+cửa hàng có giao hàng toàn quốc không
+chính sách trả góp thế nào
+có bảo hành giày yonex không
+quy định đổi hàng trong 7 ngày
+chính sách giảm giá cho hội viên
+
+[cancel]
+tôi muốn hủy đơn hàng số 1234
+làm sao để hủy order
+hủy đơn đặt sai sản phẩm
+tôi cần hủy đơn do nhập sai địa chỉ
+hủy đơn hàng chưa thanh toán
+có thể hủy đơn đã xác nhận không
+tôi muốn quản lý thông tin vận chuyển
+cập nhật địa chỉ giao hàng
+tôi cần đổi số điện thoại nhận hàng
+quản lý thông tin cá nhân trong tài khoản
+tôi muốn xóa tài khoản
+cách hủy đơn đã đặt trên web
+hủy đơn hàng ship cod
+hủy đơn đã thanh toán online
+
+[sql]
+thống kê số lượng đơn hàng theo tháng
+giá trung bình của vợt astrox
+tổng số khách hàng ở HCM
+bao nhiêu sản phẩm đang tồn kho
+doanh thu của tháng trước là bao nhiêu
+số lượng giày yonex bán ra
+tính phí vận chuyển trung bình
+liệt kê đơn hàng chưa giao
+truy vấn dữ liệu sản phẩm trong kho
+số khách hàng mới đăng ký hôm nay
+doanh thu theo từng tỉnh thành
+tổng số đơn hàng đã hủy
+giá vận chuyển của từng hãng
+bao nhiêu sản phẩm đang giảm giá
+thống kê đơn hàng theo hình thức thanh toán

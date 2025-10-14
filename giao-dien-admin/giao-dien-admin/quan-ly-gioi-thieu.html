@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | Thông Thái Agency - Giải pháp Marketing cho doanh nghiệp.</title>
+  <link rel="icon" href="../site/public/favicon.ico" sizes="32x32">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="public/assets/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="public/assets/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="public/assets/toastr/toastr.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="public/css/adminlte.min.css">
+  <!-- my style -->
+  <link rel="stylesheet" href="public/css/style.css">
+  <!-- summerNote -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+  <!-- favicon delete -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    /* Đoạn code CSS quay icon */
+    .nav-sidebar .menu-is-opening>.nav-link i.right,
+    .nav-sidebar .menu-is-opening>.nav-link svg.right,
+    .nav-sidebar .menu-open>.nav-link i.right,
+    .nav-sidebar .menu-open>.nav-link svg.right {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    label.error {
+      color: red;
+      font-weight: normal !important;
+    }
+
+    body,
+    html {
+      font-size: 14px;
+    }
+
+    [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active {
+      background: none !important;
+      color: #ff6900 !important
+    }
+
+    h1 {
+      font-size: 25px;
+    }
+  </style>
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
+
+    <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="public/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
+                width="60">
+        </div> -->
+
+
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="/" class="brand-link">
+        <img src="public/img/logo_1647334337_3A5C42.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; border-radius: 0;">
+        <!-- <span class="brand-text font-weight-light">AdminLTE 3</span> -->
+      </a>
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex"> -->
+      <!-- <div class="image">
+                        <img src="public/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div> -->
+
+      <!-- </div> -->
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+
+
+
+        <!-- SidebarSearch Form -->
+        <!-- <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div> -->
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+
+            <li class="nav-item">
+              <a href="quan-ly-trang-chu.html" class="nav-link ">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Quản lý trang chủ
+                </p>
+              </a>
+            </li>
+
+
+            <li class="nav-item ">
+              <a href="quan-ly-dich-vu-quang-cao-facebook.html" class="nav-link ">
+                <i class="nav-icon fas fa-chart-pie"></i>
+                <p>
+                  Quản lý dịch vụ quảng cáo facebook
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-dich-vu-quang-cao-tiktok.html" class="nav-link ">
+                <i class="nav-icon fas fa-tree"></i>
+                <p>
+                  Quản lý dịch vụ quảng cáo tiktok
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-khoa-hoc-facebook.html" class="nav-link ">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Quản lý khóa học facebook
+                </p>
+              </a>
+            </li>
+
+
+
+
+            <li class="nav-item ">
+              <a href="quan-ly-khoa-hoc-tiktok.html" class="nav-link ">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Quản lý khóa học tiktok
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-gioi-thieu.html" class="nav-link active">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>
+                  Quản lý giới thiệu
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Quản lý bài viết
+                  <i class="fas fa-angle-right right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="danh-sach-cac-bai-viet.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Danh sách các bài viết</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="them-bai-viet.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Thêm bài viết</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+
+
+
+
+            <li class="nav-item ">
+              <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-columns"></i>
+                <p>
+                  Quản lý tuyển dụng
+                  <i class="fas fa-angle-right right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="danh-sach-tuyen-dung.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Danh sách tuyển dụng</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="them-tuyen-dung.html" class="nav-link ">
+                    <i class="far fa-circle nav-icon" style="visibility: hidden;"></i>
+                    <p>Thêm tuyển dụng</p>
+                  </a>
+                </li>
+
+
+              </ul>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-lien-he.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Quản lý liên hệ
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="quan-ly-he-thong.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Quản lý hệ thống
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="tao-sitemap.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Tạo sitemap
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a href="tao-robots.html" class="nav-link ">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Tạo robots
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container" style="margin-top:20px;">
+
+          <div class="container" style="margin-top:20px;">
+            <div class="info" style="text-align: right;">
+              <div class="info" style="top: auto; bottom: 100%;">
+                <a href="javascript:void(0)" class="btn-account dropdown-toggle text-white" data-toggle="dropdown" id="dropdownMenu">ADMIN Hoàng Duy</a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu" style="top: auto; bottom: 100%;">
+
+
+
+                  <li><a href="?c=users&a=account" class="text-white">Thông
+                      tin tài
+                      khoản</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a class="text-white" href="?c=auth&a=logout">Thoát</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- modal -->
+
+            <h3>Thông tin</h3>
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateInfo" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="44" name="id">
+                <input type="hidden" value="1" name="so">
+                <input type="hidden" value="0" name="arr_num">
+
+                <h3>Thông tin 1</h3>
+                <div>(1263 x 262px)</div>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/gioi-thieu/test_B1466A.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="our_story_1">
+                  <label class="custom-file-label" for="our_story_1">Choose file</label>
+                </div>
+
+                <h6>Trường hợp hình không hiển thị thì được thay thế bởi dòng chữ này</h6>
+                <input class="form-control mb-3" type="text" placeholder="Nhập ký hiệu thông tin 1" value="" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thông tin 1" value="GIẢI PHÁP MARKETING TỔNG THỂ - ORI AGENCY" name="title">
+
+                <h3>Miêu tả</h3>
+
+                <textarea id="editor" class="ckeditor" name="description" rows="10" cols="80"><p style="margin-bottom:10px;text-align:justify;"><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;">Đánh giá thị trường thay đổi từng ngày, nhu cầu doanh nghiệp chuyển đổi số cũng gia tăng đột biến. Tuy nhiên, đa phần các doanh nghiệp đều loay hoay và gặp khó khăn trong việc tìm cách thức chuyển đổi cũng như tối ưu hiệu quả các hoạt động digital marketing. Chúng tôi tin rằng để thực hiện hoạt động chuyển đổi số hiệu quả cũng như tiết kiệm được chi phí tối ưu nhất các doanh nghiệp cần có giải pháp tổng thể.&nbsp;</span></p><p style="margin-bottom:10px;text-align:justify;"><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;">Ori Agency được thành lập với mục tiêu trở thành Agency đứng đầu trong hoạt động tư vấn và triển khai các giải pháp markeing tổng thế định hướng chuyển đổi cho doanh nghiệp. Ngoài ra, chúng tôi còn tập trung vào việc hỗ trợ doanh nghiệp triển khai marketing cũng như chuyển đổi số một cách hiệu quả nhất.&nbsp;</span></p><p style="text-align:justify;"><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;">Ori luôn nỗ lực đột phá mọi giới hạn, không ngừng nghiên cứu và phát triển, tìm kiếm những giải pháp hiệu quả để hỗ trợ doanh nghiệp đạt mục tiêu kinh doanh.</span></p></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateInfo" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="44" name="id">
+                <input type="hidden" value="2" name="so">
+                <input type="hidden" value="1" name="arr_num">
+
+                <h3>Thông tin 2</h3>
+                <div>(900 x 450px)</div>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/gioi-thieu/test_D7D20E.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="our_story_2">
+                  <label class="custom-file-label" for="our_story_2">Choose file</label>
+                </div>
+
+                <h6>Trường hợp hình không hiển thị thì được thay thế bởi dòng chữ này</h6>
+                <input class="form-control mb-3" type="text" placeholder="Nhập ký hiệu thông tin 2" value="" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thông tin 2" value="Sứ mệnh - tầm nhìn" name="title">
+
+                <h3>Miêu tả</h3>
+
+                <textarea id="editor" class="ckeditor" name="description" rows="10" cols="80"><p style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>SỨ MỆNH</strong></span></p><p style="margin-bottom:10px;text-align:justify;"><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;">Hỗ trợ các doanh nghiệp phát triển thông qua hoạt động tư vấn và triển khai chuyển đổi số và digital marketing cho doanh nghiệp.</span></p><p style="text-align:justify;"><br><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>TẦM NHÌN&nbsp;</strong></span></p><p style="text-align:justify;"><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;">Trở thành agency đứng đầu về giải pháp marketing tổng thể cho doanh nghiệp, hỗ trợ hoặc thay thế hiệu quả cho phòng marketing inhouse của doanh nghiệp.</span></p></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateInfo" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="44" name="id">
+                <input type="hidden" value="3" name="so">
+                <input type="hidden" value="2" name="arr_num">
+
+                <h3>Thông tin 3</h3>
+                <div>(900 x 450px)</div>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/news_1628612863.jpg" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="our_story_3">
+                  <label class="custom-file-label" for="our_story_3">Choose file</label>
+                </div>
+
+                <h6>Trường hợp hình không hiển thị thì được thay thế bởi dòng chữ này</h6>
+                <input class="form-control mb-3" type="text" placeholder="Nhập ký hiệu thông tin 3" value="" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thông tin 3" value="GIÁ TRỊ CỐT LÕI" name="title">
+
+                <h3>Miêu tả</h3>
+
+                <textarea id="editor" class="ckeditor" name="description" rows="10" cols="80"><div style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>Sự chuyên nghiệp:</strong> Chúng tôi cam kết đem đến dịch vụ và sản phẩm chất lượng cao, đồng thời duy trì thái độ chuyên nghiệp và tôn trọng đối với khách hàng, đối tác và đồng nghiệp.</span></div><div style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>Khách hàng là trung tâm:</strong> Luôn đặt lợi ích của khách hàng lên hàng đầu, lắng nghe và đáp ứng nhu cầu của họ để mang lại sự hài lòng và trung thành.</span></div><div style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>Sáng tạo:</strong> Khuyến khích đổi mới và sáng tạo trong mọi khía cạnh của kinh doanh, từ sản phẩm, dịch vụ đến quy trình làm việc, tạo ra giá trị độc đáo để đạt được hiệu quả nhất.</span></div><div style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>Cam kết đòng hành:</strong> Chúng tôi cam kết đồng hành cùng khách hàng và đối tác trong suốt quá trình hợp tác, hướng tới thành công bền vững và lâu dài..</span></div><div style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>Tinh thần đồng đội:</strong> Tạo ra một môi trường làm việc tích cực, nơi mà sự hợp tác, tôn trọng lẫn nhau và hỗ trợ lẫn nhau là nền tảng để đạt được mục tiêu chung.</span></div><div style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>Tận tâm:</strong> Luôn cống hiến hết mình trong công việc, từ việc chăm sóc khách hàng đến thực hiện các nhiệm vụ hàng ngày, đảm bảo đạt được kết quả tốt nhất.</span></div><div style="text-align:justify;"><span style="color:rgb(255,0,0);font-family:arial, helvetica, sans-serif;font-size:18px;">►&nbsp;</span><span style="color:#000000;font-family:arial,helvetica,sans-serif;font-size:16px;"><strong>Chính trực:</strong> Luôn giữ lời hứa, minh bạch và trung thực trong mọi giao dịch và quan hệ kinh doanh, xây dựng niềm tin và sự tôn trọng từ khách hàng và đối tác.</span></div></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateInfo" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="44" name="id">
+                <input type="hidden" value="4" name="so">
+                <input type="hidden" value="3" name="arr_num">
+
+                <h3>Thông tin 4</h3>
+                <div>(1284 x 624px)</div>
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image mb-3" src="public/img/news_1628614352.5x-100.jpg" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+
+                <div class="custom-file mb-3" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="our_story_4">
+                  <label class="custom-file-label" for="our_story_4">Choose file</label>
+                </div>
+
+                <h6>Trường hợp hình không hiển thị thì được thay thế bởi dòng chữ này</h6>
+                <input class="form-control mb-3" type="text" placeholder="Nhập ký hiệu thông tin 4" value="" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thông tin 4" value="QUY TRÌNH TRIỂN KHAI CỦA ORI" name="title">
+
+                <h3>Miêu tả</h3>
+
+                <textarea id="editor" class="ckeditor" name="description" rows="10" cols="80"></textarea>
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+
+            <hr color="red">
+
+            <!-- ACHIVEMENT INFO -->
+            <form action="?c=aboutUs&a=updateAchivementInfo" method="post">
+              <input type="hidden" value="48" name="id">
+              <h2 class="custom-header">Tiêu đề thông tin bổ sung 1</h2>
+              <input class="form-control" type="text" placeholder="Nhập tiêu đề thông tin" value="Kết quả đạt được" name="title">
+              <div class="form-group">
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea2" rows="3">TZ AGENCY tự hào về những kết quả đã đạt được.</textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+            </form>
+
+            <hr color="red">
+
+            <!-- ACHIVEMENT -->
+            <h2 class="custom-header">Số liệu thành tựu</h2>
+            <p>Hướng dẫn thay đổi biểu tượng</p>
+            <ol>
+              <li>Lên trang <a href="https://fontawesome.com/">https://fontawesome.com/</a></li>
+              <li>Chọn phiên bản 5 như trong hình <img style="max-width: 500px;" src="public/img/example/example-4.jpg" alt=""> </li>
+              <li>Chọn biểu tượng mình muốn ví dụ: <img style="max-width: 500px;" src="public/img/example/example.jpg" alt=""></li>
+              <li>Nhấn vào nó sẽ ra khung này: <img style="max-width: 500px;" src="public/img/example/example-1.jpg" alt=""></li>
+              <li>Coppy thẻ biểu tượng <img style="max-width: 500px;" src="public/img/example/example-2.png" alt=""> </li> rồi bỏ vào đây <img style="max-width: 500px;" src="public/img/example/example-3.png" alt="">
+            </ol>
+
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="49" name="id">
+                <input type="hidden" value="0" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-money' aria-hidden='true'></i>" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="Tỷ lệ chuyển đổi thành công dành cho khách hàng." name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="99" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="%" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="49" name="id">
+                <input type="hidden" value="1" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-users' aria-hidden='true'></i>;" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="Hơn 3,000,000 chiến dịch được khởi tạo thành công." name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="98" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="%" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="49" name="id">
+                <input type="hidden" value="2" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-line-chart' aria-hidden='true'></i>" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="Đào tạo hơn 2000 học viên toàn Việt Nam" name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="2000" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="+" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updateAchivement" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="49" name="id">
+                <input type="hidden" value="3" name="arr_num">
+
+                <h3>Biểu tượng</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="<i class='fa fa-thumbs-up' aria-hidden='true'></i>" name="icon">
+
+                <h3>Tiêu đề</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="Hơn 95% Khách Hàng phản hồi hài lòng dịch vụ của chúng tôi." name="description">
+
+                <h3>Số liệu</h3>
+                <input class="form-control mb-3" type="text" placeholder="Nhập miêu tả thành tựu của công ty" value="95" name="number">
+
+                <h3>Ký hiệu</h3>
+                <p>Nhập ký hiệu sau số của công ty ví dụ +, %, $</p>
+                <input class="form-control" type="text" placeholder="Nhập ký hiệu sau số của công ty" value="%" name="sign">
+
+                <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+              </form>
+            </div>
+
+            <!-- PARTNER -->
+            <h2 class="custom-header">Hình ảnh đối tác</h2>
+            <div>(150px x 60px)</div>
+            <!-- <input type="file" id="file-upload" name="contact_img" accept="image/*" class="custom-file-input" id="inputGroupFile01"> -->
+            <div class="form-group">
+              <form action="?c=aboutUs&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="50" name="id">
+                <input type="hidden" value="0" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/gioi-thieu/logo_1620616525_2_10891B.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="inputImage1">
+                  <label class="custom-file-label" for="inputImage1">Choose file</label>
+                </div>
+
+                <div>
+                  <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+                </div>
+              </form>
+              <form action="?c=aboutUs&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="50" name="id">
+                <input type="hidden" value="1" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/gioi-thieu/db_627879.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="inputImage2">
+                  <label class="custom-file-label" for="inputImage2">Choose file</label>
+                </div>
+
+                <div>
+                  <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+                </div>
+              </form>
+              <form action="?c=aboutUs&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="50" name="id">
+                <input type="hidden" value="2" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/qn.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="inputImage3">
+                  <label class="custom-file-label" for="inputImage3">Choose file</label>
+                </div>
+
+                <div>
+                  <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+                </div>
+              </form>
+              <form action="?c=aboutUs&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="50" name="id">
+                <input type="hidden" value="3" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/Artboard%208.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="inputImage4">
+                  <label class="custom-file-label" for="inputImage4">Choose file</label>
+                </div>
+
+                <div>
+                  <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+                </div>
+              </form>
+              <form action="?c=aboutUs&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="50" name="id">
+                <input type="hidden" value="4" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/logo_1620616552_2.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="inputImage5">
+                  <label class="custom-file-label" for="inputImage5">Choose file</label>
+                </div>
+
+                <div>
+                  <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+                </div>
+              </form>
+              <form action="?c=aboutUs&a=updatePartner" method="POST" enctype="multipart/form-data" style="border: 1px solid black;">
+                <input type="hidden" value="50" name="id">
+                <input type="hidden" value="5" name="arr_num">
+                <div class="oIContainer">
+                  <div>Hình hiện tại:</div>
+                  <img id="old-file" class="old-image" src="public/img/gioi-thieu/logo_1620616541_2_7BEBFF.png" alt="">
+                </div>
+                <div class="pIContainer" style="display: none;">
+                  <div>Hình muốn đổi:</div>
+                  <img class="preview-image file-preview" src="#" alt="Preview Uploaded Image">
+                </div>
+                <div class="custom-file" style="width: 100%;">
+                  <input type="file" class="file-upload" name="img" accept="image/*" class="custom-file-input" id="inputImage6">
+                  <label class="custom-file-label" for="inputImage6">Choose file</label>
+                </div>
+
+                <div>
+                  <button type="submit" class="btn btn-primary btn-sm m-3">Lưu</button>
+                </div>
+              </form>
+            </div>
+
+            <script src="public/js/ckeditor.js"></script>
+
+            <script>
+              let number = 0;
+              document.querySelectorAll('.ckeditor').forEach(function(textarea) {
+                textarea.id = 'editor' + number++;
+
+                // This sample still does not showcase all CKEditor&nbsp;5 features (!)
+                // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+
+                CKEDITOR.ClassicEditor.create(document.getElementById(`${textarea.id}`), {
+                  ckfinder: {
+                    uploadUrl: '?c=ckeditor&a=dashboard_about_us'
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
+                  toolbar: {
+                    items: [
+                      'exportPDF', 'exportWord', '|',
+                      'findAndReplace', 'selectAll', '|',
+                      'heading', '|',
+                      'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                      'bulletedList', 'numberedList', 'todoList', '|',
+                      'outdent', 'indent', '|',
+                      'undo', 'redo',
+                      '-',
+                      'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                      'alignment', '|',
+                      'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                      'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                      'textPartLanguage', '|',
+                      'sourceEditing',
+                    ],
+                    shouldNotGroupWhenFull: true
+                  },
+                  // Changing the language of the interface requires loading the language file using the <script> tag.
+                  // language: 'es',
+                  list: {
+                    properties: {
+                      styles: true,
+                      startIndex: true,
+                      reversed: true
+                    }
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+                  heading: {
+                    options: [{
+                        model: 'paragraph',
+                        title: 'Paragraph',
+                        class: 'ck-heading_paragraph'
+                      },
+                      {
+                        model: 'heading1',
+                        view: 'h1',
+                        title: 'Heading 1',
+                        class: 'ck-heading_heading1'
+                      },
+                      {
+                        model: 'heading2',
+                        view: 'h2',
+                        title: 'Heading 2',
+                        class: 'ck-heading_heading2'
+                      },
+                      {
+                        model: 'heading3',
+                        view: 'h3',
+                        title: 'Heading 3',
+                        class: 'ck-heading_heading3'
+                      },
+                      {
+                        model: 'heading4',
+                        view: 'h4',
+                        title: 'Heading 4',
+                        class: 'ck-heading_heading4'
+                      },
+                      {
+                        model: 'heading5',
+                        view: 'h5',
+                        title: 'Heading 5',
+                        class: 'ck-heading_heading5'
+                      },
+                      {
+                        model: 'heading6',
+                        view: 'h6',
+                        title: 'Heading 6',
+                        class: 'ck-heading_heading6'
+                      }
+                    ]
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+                  placeholder: 'Welcome to CKEditor 5!',
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+                  fontFamily: {
+                    options: [
+                      'default',
+                      'Arial, Helvetica, sans-serif',
+                      'Courier New, Courier, monospace',
+                      'Georgia, serif',
+                      'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                      'Tahoma, Geneva, sans-serif',
+                      'Times New Roman, Times, serif',
+                      'Trebuchet MS, Helvetica, sans-serif',
+                      'Verdana, Geneva, sans-serif'
+                    ],
+                    supportAllValues: true
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+                  fontSize: {
+                    options: [10, 12, 14, 'default', 18, 20, 22],
+                    supportAllValues: true
+                  },
+                  // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+                  htmlSupport: {
+                    allow: [{
+                      name: /.*/,
+                      attributes: true,
+                      classes: true,
+                      styles: true
+                    }]
+                  },
+                  // Be careful with enabling previews
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+                  htmlEmbed: {
+                    showPreviews: false
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
+                  link: {
+                    decorators: {
+                      addTargetToExternalLinks: true,
+                      defaultProtocol: 'https://',
+                      toggleDownloadable: {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                          download: 'file'
+                        }
+                      }
+                    }
+                  },
+                  // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+                  mention: {
+                    feeds: [{
+                      marker: '@',
+                      feed: [
+                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
+                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
+                        '@sugar', '@sweet', '@topping', '@wafer'
+                      ],
+                      minimumCharacters: 1
+                    }]
+                  },
+                  // The "superbuild" contains more premium features that require additional configuration, disable them below.
+                  // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+                  removePlugins: [
+                    // These two are commercial, but you can try them out without registering to a trial.
+                    // 'ExportPdf',
+                    // 'ExportWord',
+                    'AIAssistant',
+                    'CKBox',
+                    'CKFinder',
+                    'EasyImage',
+                    // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+                    // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+                    // Storing images as Base64 is usually a very bad idea.
+                    // Replace it on production website with other solutions:
+                    // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+                    // 'Base64UploadAdapter',
+                    'MultiLevelList',
+                    'RealTimeCollaborativeComments',
+                    'RealTimeCollaborativeTrackChanges',
+                    'RealTimeCollaborativeRevisionHistory',
+                    'PresenceList',
+                    'Comments',
+                    'TrackChanges',
+                    'TrackChangesData',
+                    'RevisionHistory',
+                    'Pagination',
+                    'WProofreader',
+                    // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+                    // from a local file system (file://) - load this site via HTTP server if you enable MathType.
+                    'MathType',
+                    // The following features are part of the Productivity Pack and require additional license.
+                    'SlashCommand',
+                    'Template',
+                    'DocumentOutline',
+                    'FormatPainter',
+                    'TableOfContents',
+                    'PasteFromOfficeEnhanced',
+                    'CaseChange'
+                  ]
+                });
+              });
+            </script>
+
+
+            <!-- <script src="../public/vendor/jquery-3.5.1.min.js"></script>
+<script src="../public/vendor/popper.min.js"></script>
+<script src="../public/vendor/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script> -->
+          </div>
+          <!--/. container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer" style="text-align:center;">
+      <strong>Copyright &copy; 2024-2025 <a href="#">Bill Cipher</a>.</strong>
+
+    </footer>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Bạn muốn xóa phải không?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <a href="#" class="btn btn-primary">Xác nhận </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED SCRIPTS -->
+  <!-- <script src="public/vendor/jquery-3.5.1.min.js"></script> -->
+  <!-- <script src="public/vendor/popper.min.js"></script> -->
+  <!-- <script src="public/vendor/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>  -->
+
+
+
+
+  <!-- jQuery -->
+  <script src="public/js/jquery-3.6.0.min.js"></script>
+  <!-- <script src="public/assets/jquery/jquery.min.js"></script> -->
+  <!-- Bootstrap -->
+  <script src="public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="public/assets/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <!-- <script src="public/js/jquery-validation-1.19.5/dist/jquery.validate.min.js"></script> -->
+  <script src="public/js/adminlte.min.js"></script>
+
+  <!-- PAGE PLUGINS -->
+  <!-- jQuery Mapael -->
+  <script src="public/assets/jquery-mousewheel/jquery.mousewheel.js"></script>
+  <script src="public/assets/raphael/raphael.min.js"></script>
+  <script src="public/assets/jquery-mapael/jquery.mapael.min.js"></script>
+  <script src="public/assets/jquery-mapael/maps/usa_states.min.js"></script>
+  <!-- ChartJS -->
+  <script src="public/assets/chart.js/Chart.min.js"></script>
+
+  <!-- AdminLTE for demo purposes -->
+  <script src="public/js/demo.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="public/js/pages/dashboard2.js"></script>
+  <!-- SummerNote -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+  <script src="public/assets/jquery-validation/dist/jquery.validate.min.js"></script>
+
+  <!-- <script src="public/js/ckeditor.js"></script> -->
+
+  <script src="public/js/script.js"></script>
+
+  < /body>
+
+    < /html>

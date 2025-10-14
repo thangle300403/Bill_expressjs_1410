@@ -1,0 +1,11 @@
+ <!-- Display messages -->
+ <% if(typeof session.message_success !== 'undefined' && session.message_success){ %>
+ <div class="alert alert-success mt-3 text-center"><%= session.message_success %></div>
+ <% } %>
+ <% if(typeof session.message_error !== 'undefined' && session.message_error){ %>
+ <div class="alert alert-danger mt-3 text-center"><%= session.message_error %></div>
+ <% } %>
+ <%
+ delete session.message_success;
+ delete session.message_error;
+ %>

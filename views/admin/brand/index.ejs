@@ -1,0 +1,76 @@
+ <!-- modal -->
+ <div class="row">
+   <div class="col-12">
+     <div class="card">
+       <div class="card-header">
+
+         <h3 class="card-title">Quản lý thương hiệu</h3>
+         <form action="/admin/brand" method="GET">
+           <label class="form-inline justify-content-end">
+             Tìm kiếm: <input type="search" name="search" class="form-control" value="<%= search %>">
+             <button class="btn btn-danger" type="submit">Tìm</button>
+           </label>
+         </form>
+       </div>
+
+       <div class="d-flex justify-content-start p-2">
+         <a href='/admin/brand/create' class="btn btn-info">Thêm thương hiệu</a>
+       </div>
+
+       <!-- /.card-header -->
+       <div class="card-body table-responsive p-0">
+         <table class="table table-hover text-nowrap">
+           <thead>
+             <tr>
+               <th>ID</th>
+               <th>Tên thương hiệu</th>
+               <th>Hình ảnh</th>
+               <th></th>
+               <th></th>
+             </tr>
+           </thead>
+           <tbody>
+             <% for (const brand of brands){ %>
+             <tr>
+               <td><%= brand.id %></td>
+               <td><%= brand.name %></td>
+               <td><img src="/images/<%= brand.brand_image %>" alt="" style="max-width: 80px; max-height: 40px;"></td>
+               <td><a type=" button" class="btn btn-block btn-info" href="/admin/brand/edit/<%= brand.id %>">Sửa</a></td>
+               <td>
+                 <button data-href="/admin/brand/destroy/<%= brand.id %>" type="button" class="btn btn-block btn-danger destroy" data-toggle="modal" data-target="#exampleModal">
+                   Xóa
+                 </button>
+               </td>
+             </tr>
+             <%}%>
+             </tbody>
+           </table>
+         </div>
+         <!-- /.card-body -->
+       </div>
+       <!-- /.card -->
+     </div>
+   </div>
+  
+   <!-- Paging -->
+  <%- include('../pagination') %>
+             <!-- End paging -->
+
+             <!-- Button trigger modal -->
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Bạn chắc là muốn xóa?</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                   <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                     <a type="button" class="btn btn-primary">Có</a>
+                   </div>
+                 </div>
+               </div>
+             </div>

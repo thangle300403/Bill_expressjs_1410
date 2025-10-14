@@ -1,0 +1,77 @@
+@startuml
+left to right direction
+
+
+actor Customer
+actor Admin
+
+Admin --|> Customer
+
+rectangle "Online Platform" {
+    together {
+        (View Home Page)
+        (View Contact Form)
+        (Send Contact Email)
+        (Register)
+    }
+    together {
+        (Add to Cart)
+        (Update Cart)
+        (Delete from Cart)
+        (Manage address)
+        (Checkout)
+        (Place Order)
+    }
+    together {
+        (View Account Info)
+        (Update Account Info)
+        (View Orders)
+        (View Order Detail)
+        (Update Shipping Address)
+        (Activate Account)
+        (Reset Password)
+        (Detect Pose)
+        (Try On Shirt)
+        (Login)
+        (Logout)
+        (Forgot Password)
+    }
+    together {
+        (Manage Products)
+        (Manage Orders)
+        (Manage Users)
+        (View Reports)
+    }
+}
+
+(Forgot Password) .> (Login) : extends
+
+Guest --> (View Home Page)
+Guest --> (View Contact Form)
+
+Guest --> (Register)
+Guest --> (Add to Cart)
+Guest --> (Update Cart)
+Guest --> (Delete from Cart)
+Guest --> (Manage address)
+Guest --> (Checkout)
+Guest --> (Place Order)
+
+Customer --> (View Account Info)
+Customer --> (Update Account Info)
+Customer --> (View Orders)
+Customer --> (View Order Detail)
+Customer --> (Update Shipping Address)
+Customer --> (Activate Account)
+Customer --> (Reset Password)
+Customer --> (Detect Pose)
+Customer --> (Try On Shirt)
+Customer --> (Login)
+Customer --> (Logout)
+
+Admin --> (Manage Products)
+Admin --> (Manage Orders)
+Admin --> (Manage Users)
+Admin --> (View Reports)
+
+@enduml

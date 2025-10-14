@@ -1,0 +1,15 @@
+<form class="create-article" action="/admin/role/update" method="POST">
+  <div class=" card-header">
+    <h1 class="card-title">Sửa vai trò</h1>
+  </div>
+  <input type="hidden" name="id" value="<%= role.id %>">
+  <br><br>
+
+  <h6 class="font-weight-bold">Tên vai trò</h6>
+  <input class="form-control form-control-lg" placeholder="Enter role name" name="name" value="<%= role.name %>"></input>
+
+  <br><br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

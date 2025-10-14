@@ -1,0 +1,43 @@
+<form class="create-article" action="/admin/staff/store" method="POST">
+  <div class=" card-header">
+    <h1 class="card-title">Thêm nhân viên</h1>
+  </div>
+
+  <h6 class="font-weight-bold">Vai trò</h6>
+  <select class="form-control form-control-lg" name="role_id">
+    <% roles.forEach((role) => { %>
+    <option value="<%= role.id %>"><%= role.name %></option>
+    <% }) %>
+  </select>
+
+  <br><br>
+
+  <h6 class="font-weight-bold">Tên nhân viên</h6>
+  <input class="form-control form-control-lg" placeholder="Enter staff name" name="name" rows="2"></input>
+
+  <br>
+  <!-- CODE BỔ SUNG -->
+  <h6 class="font-weight-bold">Số điện thoại</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter mobile" name="mobile" value="">
+  <br>
+
+  <h6 class="font-weight-bold">Email</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter email" name="email" value="">
+
+  <br>
+
+  <h6 class="font-weight-bold">Biệt danh</h6>
+  <input class="form-control form-control-lg" type="text" placeholder="Enter staffname" name="username" value="">
+
+  <br>
+
+  <h6 class="font-weight-bold">Trạng thái</h6>
+  <select class="form-control form-control-lg" name="is_active">
+    <option value="0">Không hoạt động</option>
+    <option value="1">Hoạt động</option>
+  </select>
+  <br><br>
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Lưu</button>
+  </div>
+</form>

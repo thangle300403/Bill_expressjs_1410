@@ -1,0 +1,66 @@
+ <!-- modal -->
+ <div class="row">
+   <div class="col-12">
+     <div class="card">
+       <div class="card-header">
+         <h3 class="card-title">Quản lý tác vụ</h3>
+
+         <form action="/admin/action" method="GET">
+           <label class="form-inline justify-content-end">
+             Tìm kiếm: <input type="search" name="search" class="form-control" value="<%= search %>">
+             <button class="btn btn-danger" type="submit">Tìm</button>
+           </label>
+         </form>
+       </div>
+
+       <!-- /.card-header -->
+       <div class="card-body table-responsive p-0">
+         <table class="table table-hover text-nowrap">
+           <thead>
+             <tr>
+               <th>ID</th>
+               <th>Mã tác vụ</th>
+               <th>Tên tác vụ</th>
+               <th></th>
+             </tr>
+           </thead>
+           <tbody>
+             <% for (const action of actions){ %>
+             <tr>
+               <td><%= action.id %></td>
+               <td><%= action.name %></td>
+               <td><%= action.description %></td>
+               <td><a type="button" class="btn btn-block btn-info" href="/admin/action/edit/<%= action.id %>/">Sửa</a></td>
+             </tr>
+             <%}%>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+   
+    <!-- Paging -->
+   <%- include('../pagination') %>
+             <!-- End paging -->
+
+             <!-- Button trigger modal -->
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Bạn chắc là muốn xóa?</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                   <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                     <a type="button" class="btn btn-primary">Có</a>
+                   </div>
+                 </div>
+               </div>
+             </div>

@@ -1,0 +1,166 @@
+<html lang="en">
+
+</html>
+
+</html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="HTML5 Template">
+  <meta name="description" content="Neon - Admin template">
+  <meta name="author" content="Creativeitem">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="../site//admin/favicon.ico" sizes="32x32">
+  <title>Bill Cipher Agency - Thế giới vũ cầu. - Login</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,500,500i,600,700,800,900|Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
+
+
+  <link rel="stylesheet" href="/admin/css/bootstrap-login.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/css/typography.css">
+  <link rel="stylesheet" type="text/css" href="/admin/css/style-login.css">
+
+
+  <link rel="stylesheet" href="/admin/css/neon-core.css">
+  <link rel="stylesheet" href="/admin/css/neon-theme.css">
+  <link rel="stylesheet" href="/admin/css/neon-forms.css">
+  <link rel="stylesheet" href="/admin/css/entypo.css">
+  <link rel="stylesheet" href="/admin/css/custom.css">
+  <link rel="stylesheet" href="/admin/css/style.css">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <section class="gray-bg height-100vh d-flex align-items-center page-section-ptb ">
+      <div class="container">
+        <div class="row no-gutters justify-content-center">
+          <div class="col-lg-4 col-md-6 login-fancy-bg bg-overlay-black-40" style="background: url(/admin/img/login_bg.webp);">
+            <div class="login-fancy pos-r d-flex">
+              <div class="text-center w-100 align-self-center">
+                <img src="/images/BillCipher.png" height="100">
+                <h2 class="text-white mb-20">Bill Cipher</h2>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 white-bg">
+            <div class="login-fancy pb-40 clearfix" id="login_area">
+              <h3 class="mb-30">Đăng nhập</h3>
+              <% if (typeof session.message_success !='undefined' ) {%>
+              <div class="alert alert-success mt-3 text-center">
+                <%=session.message_success%>
+                <% delete session.message_success%>
+              </div>
+              <% } else if (typeof session.message_error !='undefined' ) { %>
+              <div class="alert alert-danger mt-3 text-center">
+                <%=session.message_error%>
+                <% delete session.message_error%>
+              </div>
+              <% } %>
+              <form class="form-login" action="/admin/processLogin" method="post">
+                <div class="section-field mb-20">
+                  <label class="mb-10" for="name">Email* </label>
+                  <input id="email" class="web form-control" type="email" placeholder="Email" name="email" required="">
+                </div>
+                <div class="section-field mb-20">
+                  <label class="mb-10" for="Password">Mật khẩu* </label>
+                  <input id="Password" class="Password form-control" type="password" placeholder="Mật khẩu" name="password" required="">
+                </div>
+                <button type="submit" class="btn btn-blue">Đăng nhập</button>
+              </form>
+
+              <div class="section-field">
+                <div class="remember-checkbox mb-30">
+                  <a href="#" class="float-right" id="forgot_password_button" onclick="toggleView(this)">Quên mật khẩu?</a>
+
+                  <a href="/" class="float-left">
+                    <i class="entypo-left-open"></i>Trở lại trang chủ</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="login-fancy pb-40 clearfix" id="forgot_password_area" style="display: none;">
+              <h3 class="mb-30">Quên mật khẩu?</h3>
+              <form class="" action="?c=users&a=forgot_password" method="post">
+                <div class="section-field mb-20">
+                  <label class="mb-10" for="name">Email* </label>
+                  <input id="forgot_password_email" class="web form-control" type="email" placeholder="Email" name="email" required="">
+                </div>
+                <button type="submit" class="btn btn-blue">Gửi email</button>
+              </form>
+
+              <div class="section-field">
+                <div class="remember-checkbox mb-30">
+                  <a href="#" class="float-right" id="login_button" onclick="toggleView(this)">Trở lại trang đăng nhập?</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- jQuery -->
+  <script src="/admin/js/jquery-3.6.0.min.js"></script>
+  <!-- <script src="/admin/assets/jquery/jquery.min.js"></script> -->
+  <!-- Bootstrap -->
+  <script src="/admin/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="/admin/assets/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <!-- <script src="/admin/js/jquery-validation-1.19.5/dist/jquery.validate.min.js"></script> -->
+  <script src="/admin/js/adminlte.min.js"></script>
+
+  <!-- PAGE PLUGINS -->
+  <!-- jQuery Mapael -->
+  <script src="/admin/assets/jquery-mousewheel/jquery.mousewheel.js"></script>
+  <script src="/admin/assets/raphael/raphael.min.js"></script>
+  <script src="/admin/assets/jquery-mapael/jquery.mapael.min.js"></script>
+  <script src="/admin/assets/jquery-mapael/maps/usa_states.min.js"></script>
+  <!-- ChartJS -->
+  <script src="/admin/assets/chart.js/Chart.min.js"></script>
+
+  <!-- AdminLTE for demo purposes -->
+  <script src="/admin/js/demo.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="/admin/js/pages/dashboard2.js"></script>
+  <!-- SummerNote -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+  <script src="/admin/assets/jquery/jquery-3.3.1.min.js"></script>
+  <script src="/admin/assets/jquery-validation/dist/jquery.validate.min.js"></script>
+
+  <script src="/admin/js/ckeditor.js"></script>
+
+  <script src="/admin/js/script.js"></script>
+
+
+  <script src="/admin/js/toastr.js"></script>
+  <script type="text/javascript">
+    function toggleView(elem) {
+      if (elem.id === 'forgot_password_button') {
+        $('#login_area').hide();
+        $('#forgot_password_area').show();
+      } else if (elem.id === 'login_button') {
+        $('#login_area').show();
+        $('#forgot_password_area').hide();
+      }
+    }
+  </script>
+  <!-- SHOW TOASTR NOTIFIVATION -->
+
+
+
+</body>
+
+</html>
