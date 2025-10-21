@@ -1,4 +1,7 @@
+const { getSSLOptions } = require("./sslOptions");
+
 (async () => {
+    const https = require("https");
     const express = require('express');
     const ejsLayout = require('express-ejs-layouts');
     const path = require('path');
@@ -29,21 +32,23 @@
     // await debugListChromaContents("sql_docs");
 
     const app = express();
+    const options = getSSLOptions("C:\\Users\\Administrator\\Desktop\\ssl\\billbad.com");
 
     // Set the layout
     app.use(ejsLayout);
     app.use(
         cors({
-            origin: ['http://localhost:3000',
-                'http://localhost:80',
-                'http://localhost',
-                'http://14.225.192.76:3000',
-                'http://14.225.192.76:80',
-                'http://14.225.192.76',
-                'https://billwinslow.top',
-                'https://www.billwinslow.top',
-                'https://billbad.com',
-                'https://www.billbad.com',],
+            origin: [
+'http://localhost:3000',
+      'http://localhost:80',
+      'http://localhost',
+      'http://14.225.192.76:3000',
+      'http://14.225.192.76:80',
+      'http://14.225.192.76',
+      'https://billwinslow.top',
+      'https://www.billwinslow.top',
+      'https://billbad.com',
+      'https://www.billbad.com',],
             credentials: true,
         })
     );
@@ -82,7 +87,11 @@
     app.use('/admin', adminRouter);
     app.use('/api/v1', apiRouter);
 
-    app.listen(PORT, HOST_NAME, () => {
-        console.log(`✅ Server running at http://${HOST_NAME}:${PORT}`);
+    // app.listen(PORT, HOST_NAME, () => {
+    //     console.log(`✅ Server running at http://${HOST_NAME}:${PORT}`);
+    // });
+
+    https.createServer(options, app).listen(PORT, HOST_NAME, () => {
+        console.log(`✅ HTTPS Express running at https://${HOST_NAME}:${PORT}`);
     });
 })();

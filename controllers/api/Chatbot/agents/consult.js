@@ -1,106 +1,107 @@
-//CONSULTAGENT
+// CONSULT AGENT — PURE CONSULT VERSION (no tools)
 import { ChatMessagePromptTemplate, ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
-import productModel from "../../../../models/Product.js";
-import slugify from "slugify";
-import { searchSimilar, searchSimilarConsult } from "../vectorStore.js";
-import { getVectorStore } from "../vectorStore.js";
 import { model } from "../../../../controllers/api/Chatbot/llm.js";
 import { pushLog } from "../extra/sseLogs.js";
 import dotenv from "dotenv";
-import { getProductCache, isProductCacheLoaded } from "../cache/productCache.js";
+import { getProductCache } from "../cache/productCache.js";
+import { searchSimilarConsult } from "../vectorStore.js";
 import { saveChatHistory } from "../memory/saveChatHistory.js";
+import { searchSimilar } from "../vectorStore.js";
+import { findProductMatches } from "../extra/findProductMatches.js";
 dotenv.config();
 
-function looksLikeJSON(text) {
-    return text.trim().startsWith("{") && text.trim().endsWith("}");
-}
-
-function normalize(text) {
-    return text.toLowerCase().replace(/[^a-z0-9]/g, "");
-}
-
 const consultPromptTemplate = ChatPromptTemplate.fromMessages([
-    ["system", `
-You are an AI assistant specializing in badminton equipment consultation for a shop. 
-You ONLY advise about badminton gear (rackets, shoes, apparel, etc.). 
-Do not answer about policies or prices – those are handled by other agents.
+    [
+        "system",
+        `
+Bạn là trợ lý AI chuyên tư vấn sản phẩm cầu lông.
+Chỉ thực hiện nhiệm vụ tư vấn (KHÔNG sử dụng hay gọi bất kỳ tool nào).
 
-1 Always introduce yourself briefly.
-2 Be friendly and concise.
-3 If the customer’s request is vague, ask clarifying questions.
-4 After giving advice, ALWAYS suggest a follow-up question which related to checkout 
-5 Always:
-- look at the 'Conversation history' to give the most acurate answer base in user intent. Nếu trước đó họ nói về "vợt nặng đầu", "cho người đập mạnh", "người mới chơi", hoặc đặc điểm tương tự,
-hãy dùng lại thông tin đó trong câu trả lời mới.  
-**Không được hỏi lại** những điều mà khách hàng đã nói rõ.
-- look at the 'Semantic context' to get the most acurate product description base in user needs.
+Quy tắc:
+1. Tư vấn chi tiết và thân thiện, bằng tiếng Việt.
+2. Luôn tham khảo lịch sử hội thoại để duy trì ngữ cảnh, không hỏi lại thông tin khách đã cung cấp.
+3. Không được nói về chính sách, hủy đơn, hoặc giá sản phẩm — các phần đó do hệ thống khác phụ trách.
+4. Nếu khách hỏi mơ hồ, hãy hỏi lại để làm rõ nhu cầu (ví dụ: trọng lượng, cấp độ chơi).
+5. Luôn đưa ra gợi ý sản phẩm hoặc loại sản phẩm phù hợp dựa trên ngữ cảnh.
+6. Cuối câu nên gợi mở (“Bạn có muốn mình gợi ý thêm vài mẫu không?”).
 
-NOTE:
-Some times more than one tool will be used, but match_product must always use first. exmaple: Tôi muốn mua Yonex Astrox 100ZZ, call tool "current_step": "match_product" first to detect product then call "current_step": "add_to_cart".
-You know when there are products in the user message, you must call "current_step": "match_product" first to detect product then call "current_step": "add_to_cart".
-Sometimes queston like: Vợt cho người đập mạnh, mới chơi no product provided then u just need to consult no tools needed to use give answer then go to intent.
-- Each tool can only be used ONCE, If a tool is already in usedTools, do not call it again.  
-- current_step = "intent" (When no more toolss are needed)
-- All final responses visible to the customer must be in Vietnamese.
+== Dữ liệu tham khảo ==
+- Danh sách sản phẩm: {productList}
+- Lịch sử hội thoại: {historyFormatted}
+- Ngữ cảnh sản phẩm (semantic context): {productContext}
 
-
-== Output Requirements ==
-- For consult-only: reply in plain Vietnamese text.  
-- For tool calls: reply in JSON exactly as shown, with "response" in Vietnamese.
-
-== Data Provided ==
-- Product list: {productList}
-- Conversation history: {historyFormatted}
-- Product descriptions  (Semantic context): {productContext} 
-- Tools already used usedTools: {usedTools}
-- Tools available: {availableTools}  
-- Products detected in user’s message: {matchedProdInUserQues}
-⚠️ If 'matchedProdInUserQues' is NOT EMPTY, it means those products DEFINITELY exist in stock. 
-Do NOT say they are unavailable or out of stock.
-
-== Rules ==
-trả lời bằng ĐÚNG CÚ PHÁP JSON như sau:
-{{  
-  "response": "<câu trả lời>",  
-  "current_step": "add_to_cart" || "match_product || etc."
-    }}
-  `],
-
+Trả lời ngắn gọn, thân thiện, hoàn toàn bằng tiếng Việt, không định dạng JSON.
+`
+    ],
     new MessagesPlaceholder("messages"),
 ]);
 
-
-
 const consultChain = RunnableSequence.from([consultPromptTemplate, model]);
 
-export async function consultAgent({ messages, email, history, session_id, intent, answered_intents = [], original_user_msg, used_tool, cartProduct, matchedProdInUserQues = [], topMatchedProduct }) {
+function containsProductKeyword(text) {
+    if (!text) return false;
+    const lower = text.toLowerCase();
+
+    const productKeywords = [
+        // thương hiệu
+        "yonex", "lining", "victor", "mizuno", "apacs", "kawasaki",
+        "sản phẩm",
+        // nhóm sản phẩm
+        "vợt", "racket", "giày", "shoes", "áo", "shirt", "quần", "pants",
+        "túi", "bag", "dây cước", "string", "grip",
+        // model phổ biến
+        "astrox", "duora", "arcsaber", "nanoflare", "power cushion",
+    ];
+
+    return productKeywords.some(keyword => lower.includes(keyword));
+}
+
+
+export async function consultAgent({
+    messages,
+    email,
+    history,
+    session_id,
+    intent,
+    answered_intents = [],
+    original_user_msg,
+}) {
     try {
+        const userQuestion = original_user_msg;
         const logKey = email || session_id;
         const log = (msg, step = null) => pushLog(logKey, { msg, step });
 
-        console.log("✅ consultAgent received topMatchedProduct:", topMatchedProduct?.name);
+        log("🎯 Trợ lý đang tư vấn", "consult");
 
-        console.log("🚧 !!!!!!!! Now we enter:", intent);
-        log(`Trợ lí đang tư vấn`, "intent-consult");
-
+        // Lấy dữ liệu sản phẩm từ cache
         const products = await getProductCache();
-
         const productList = products
-            .map(p => `${p.name} (giá ${p.price}đ)`)
+            .map((p) => `${p.name} (giá ${p.price}đ)`)
             .join(", ");
 
-        const toolList = ["add_to_cart", "match_product"];
+        // Lấy ngữ cảnh sản phẩm từ vector store
+        let similarProducts = [];
 
-        const usedTools = Array.isArray(used_tool) ? used_tool : (used_tool ? [used_tool] : []);
+        if (containsProductKeyword(userQuestion)) {
+            console.log("🔍 Detect product keyword in user question → running searchSimilarConsult");
+            similarProducts = await searchSimilarConsult(
+                userQuestion,
+                5,
+                0.5,
+                "product_descriptions"
+            );
+        } else {
+            console.log("⚠️ No product keyword found in user question → skip search");
+            // optional: reuse previous product context
+            similarProducts = [];
+        }
 
-        console.log("🚧 usedTools:", usedTools);
+        const productContext = similarProducts
+            .map((doc, idx) => `#${idx + 1} ${doc.pageContent}`)
+            .join("\n");
 
-        const availableTools = toolList.filter(t => !usedTools.includes(t)).join(", ");
-
-        const userQuestion = messages.at(-1)?.content || "";
-
-        log(`Đang lưu lại lịch sử giao tiếp`, "consult-his");
+        // Format lịch sử hội thoại
         const historyFormatted = (history || [])
             .map((msg, idx) => {
                 if (msg.role === "user") {
@@ -114,161 +115,33 @@ export async function consultAgent({ messages, email, history, session_id, inten
             .filter(Boolean)
             .join("\n");
 
-        log(`Đang tìm kiếm các sản phẩm phù hợp`, "consult-his");
-
-        const similarProducts = await searchSimilarConsult(
-            userQuestion,
-            5,
-            0.5,
-            "product_descriptions"
-        );
-
-        const productContext = similarProducts
-            .map((doc, idx) => `#${idx + 1} ${doc.pageContent}`)
-            .join("\n");
-
-        log(`Bill tổng hợp dữ liệu gửi cho trợ lí tư vấn `, "consult-invoke");
-
+        // Tạo prompt & gọi model
         const response = await consultChain.invoke({
             messages,
             productList,
             historyFormatted,
-            usedTools,
-            availableTools,
             productContext,
-            matchedProdInUserQues,
         });
 
-        let raw = response.content.trim();
+        const aiText = response.content.trim();
+        log(`🧠 AI trả lời: ${aiText}`, "consult-done");
 
-        console.log("🚧 raw:", raw);
+        const { matched, productDetailUrls } = findProductMatches(aiText, products);
 
-        // 🔧 Fix LLM output that is wrapped in markdown ```json
-        if (raw.startsWith("```json")) {
-            raw = raw.replace(/^```json\s*/, "").replace(/```$/, "").trim();
-        } else if (raw.startsWith("```")) {
-            raw = raw.replace(/^```\s*/, "").replace(/```$/, "").trim();
-        }
+        // Lưu lại lịch sử hội thoại
+        await saveChatHistory({
+            email,
+            session_id,
+            role: "ai",
+            content: aiText + productDetailUrls,
+        });
 
-        log(`Kiểm tra tool sẽ dùng`, "consult-check");
-        //check tool xài chưa
-        let parsed, aiText;
-
-        try {
-            if (!looksLikeJSON(raw)) throw new Error("Quick reject: Not JSON");
-
-            parsed = JSON.parse(raw);
-
-            if (parsed.current_step === "add_to_cart") {
-                aiText = ""; // hoặc bạn có thể cho `null` nếu cần
-            } else {
-                aiText = parsed.response;
-            }
-
-            if (usedTools.includes(parsed.current_step)) {
-                console.warn(`⚠️ Tool "${parsed.current_step}" was already used. Downgrading to "intent".`);
-                parsed.current_step = "intent";
-            }
-        } catch (e) {
-            console.warn("⚠️ Not valid JSON. Treating as plain text response.");
-            parsed = { current_step: "intent" };
-            aiText = raw;
-        }
-
-        log(`Trợ lí đang chuẩn bị sản phẩm`, "consult-matched");
-
-        //lấy card product
-        const matched = [];
-        const seenNames = new Set();
-
-        for (const p of products) {
-            if (
-                aiText.toLowerCase().includes(p.name.toLowerCase()) &&
-                !seenNames.has(p.name)
-            ) {
-                matched.push(p);
-                seenNames.add(p.name);
-            }
-        }
-        let productDetailUrls = "";
-        console.log("🚀 IMAGE_BASE_URL =", process.env.IMAGE_BASE_URL);
-
-        if (matched.length > 0) {
-            const urls = matched.map((p) => {
-                const slug = slugify(p.name, { lower: true });
-                const url = `${process.env.FRONTEND_URL_NEXT}/san-pham/${slug}-${p.id}`;
-                const encodedMsg = encodeURIComponent(`tôi muốn thêm ${p.name} vào giỏ hàng`);
-                const imgSrc = `${process.env.IMAGE_BASE_URL}/${p.featured_image}`;
-
-                return `
-<div class="product-card" 
-     style="border: 1px solid #ccc; border-radius: 8px; 
-            padding: 8px; margin-bottom: 8px; 
-            display: flex; align-items: center; gap: 10px; 
-            background: #f8f9fa; max-width: 400px;">
-
-  <!-- Image -->
-  <img src="${imgSrc}" alt="${p.name}" 
-       style="width: 70px; height: 70px; object-fit: contain; border-radius: 6px;" />
-
-  <!-- Info -->
-  <div style="flex: 1; line-height: 1.3;">
-    <a href="${url}" 
-       style="font-weight: bold; font-size: 14px; color: #1D4ED8; display: block; margin-bottom: 4px;" 
-       target="_blank">${p.name}</a>
-    <span style="font-size: 13px; color: #16A34A;">💰 ${p.price.toLocaleString()}đ</span>
-  </div>
-
-  <!-- Small Button -->
-  <button class="add-to-cart-btn" 
-          data-product="${p.name}" data-msg="${encodedMsg}" 
-          style="background: #FACC15; color: #000; border: none; 
-                 padding: 4px 8px; border-radius: 4px; 
-                 font-size: 12px; font-weight: 500; cursor: pointer;">
-    🛒 Thêm
-  </button>
-</div>
-  `.trim();
-            });
-
-            productDetailUrls = `\n${urls.join("\n")}`;
-        }
-
-        console.log("Consult agent curent_step:", parsed.current_step);
-        // normalize and accumulate answered intents without duplicates
         const prevAnswered = Array.isArray(answered_intents)
             ? answered_intents
             : answered_intents
                 ? [answered_intents]
                 : [];
         const newAnswered = [...new Set([...prevAnswered, "consult"])];
-
-        // normalize and accumulate used tools without duplicates
-        const prevUsed = Array.isArray(used_tool)
-            ? used_tool
-            : used_tool
-                ? [used_tool]
-                : [];
-
-        let newUsedTools = [...prevUsed];
-        if (parsed.current_step && parsed.current_step !== "intent") {
-            if (parsed.current_step === "add_to_cart") {
-                if (topMatchedProduct) {
-                    newUsedTools = [...new Set([...prevUsed, "add_to_cart"])];
-                }
-            } else {
-                newUsedTools = [...new Set([...prevUsed, parsed.current_step])];
-            }
-        }
-
-        if (aiText && aiText.trim()) {
-            await saveChatHistory({
-                email,
-                session_id,
-                role: "ai",
-                content: aiText + productDetailUrls,
-            });
-        }
 
         return {
             messages: [
@@ -277,14 +150,10 @@ export async function consultAgent({ messages, email, history, session_id, inten
                     role: "ai",
                     content: aiText + productDetailUrls,
                     additional_kwargs: { tag: "consult_reply" },
-                }
+                },
             ],
             answered_intents: newAnswered,
-            current_step: parsed.current_step,
-            used_tool: newUsedTools,
-            cartProduct: ["add_to_cart"].includes(parsed.current_step) && topMatchedProduct
-                ? { product: topMatchedProduct, quantity: 1 }
-                : undefined,
+            current_step: "intent", // ✅ luôn quay về intent
         };
     } catch (error) {
         console.error("❌ consultAgent failed:", error.message);

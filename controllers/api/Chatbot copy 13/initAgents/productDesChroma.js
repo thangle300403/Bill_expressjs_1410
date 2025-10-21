@@ -37,16 +37,14 @@ function cleanDescription(rawHtml) {
 
 // 🔁 Build chunks for one product
 async function buildChunksFromProduct(product) {
-    const raw = product.short_description?.trim();
+    const raw = product.description || product.name || "";
+    const content = cleanDescription(raw);
 
-    if (!raw) {
-        console.warn(`⚠️ ${product.name} has empty short_description`);
-        return [];
-    }
+    if (!content.trim() || content.length < 30) return []; // skip too short
 
     return splitter.splitDocuments([
         new Document({
-            pageContent: raw,
+            pageContent: content,
             metadata: {
                 product_id: product.id,
                 name: product.name,
@@ -59,7 +57,6 @@ async function buildChunksFromProduct(product) {
         }),
     ]);
 }
-
 
 
 // 🔁 Get Chroma vector store instance

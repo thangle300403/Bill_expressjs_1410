@@ -125,7 +125,6 @@ const ApiChatbotController = {
 
             const { matched, productDetailUrls } = findProductMatches(answer, products);
 
-            console.log("Matched:", matched);
             console.log("HTML cards:", productDetailUrls);
 
             return res.json({

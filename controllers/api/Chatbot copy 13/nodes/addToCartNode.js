@@ -24,7 +24,7 @@ export async function addToCartNode(state) {
                 {
                     role: "ai",
                     content:
-                        "Đang lấy thông tin sản phẩm để thêm vào giỏ. Vui lòng đợi...",
+                        "Đang lấy thông tin sản phẩm để thêm vào giỏ. Vui lồng đợi...",
                 },
             ],
             current_step: "match_product", // ép quay lại match_product
@@ -73,14 +73,12 @@ export async function addToCartNode(state) {
 
     const aiText = `✅ Đã thêm sản phẩm ${p.name} vào giỏ.`;
 
-    const his = await saveChatHistory({
+    await saveChatHistory({
         email,
         session_id,
         role: "ai",
         content: aiText,
     });
-
-    console.log("his in addToCartNode:", his);
 
     return {
         ...state,
@@ -97,7 +95,7 @@ export async function addToCartNode(state) {
             action: "add_to_cart",
             item,
         },
-        current_step: "__end__",
-        used_tool: newUsedTools,
+        current_step: "consult",
+        used_tool: newUsedTools, // ✅ chỉ log add_to_cart khi thành công
     };
 }

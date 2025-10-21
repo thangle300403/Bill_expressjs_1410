@@ -118,14 +118,14 @@ export const supervisorGraph = new StateGraph(SupervisorState)
         sql: "sql",
         cancel: "cancel",
         policy: "policy",
-        match_product: "match_product",
-        add_to_cart: "add_to_cart",
         __end__: "__end__"
     })
 
     // AGENTS LOOP BACK TO INTENT
     .addConditionalEdges("consult", s => s.current_step || "__end__", {
         intent: "intent",
+        match_product: "match_product",
+        add_to_cart: "add_to_cart",
         __end__: "__end__"
     })
     .addConditionalEdges("sql", s => s.current_step || "__end__", {
@@ -146,8 +146,9 @@ export const supervisorGraph = new StateGraph(SupervisorState)
         }
         return s.current_step || "__end__";
     }, {
-        match_product: "match_product",
+        consult: "consult",
         intent: "intent",
+        match_product: "match_product",
         __end__: "intent",
     })
 
@@ -155,8 +156,9 @@ export const supervisorGraph = new StateGraph(SupervisorState)
         console.log("🔄 Routing from match_product back to consult, step =", s.current_step);
         return s.current_step || "__end__";
     }, {
+        consult: "consult",
         intent: "intent",
-        __end__: "intent",
+        __end__: "__end__"
     })
 
 

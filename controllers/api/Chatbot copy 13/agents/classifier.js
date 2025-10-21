@@ -4,7 +4,6 @@ import { model } from "../../../../controllers/api/Chatbot/llm.js";
 import { searchSimilar } from "../vectorStore.js";
 import { pushLog } from "../extra/sseLogs.js";
 import { getProductCache } from "../cache/productCache.js";
-import { addToCartTool, matchProductTool } from "../nodes/index.js";
 
 let loopCount = 0;
 
@@ -15,21 +14,9 @@ export async function intentClassifier({
     original_user_msg,
     cartOutput,
     session_id,
-    used_tool,
     history = [],
 }) {
     loopCount++;
-
-    const toolList = [addToCartTool, matchProductTool];
-
-    const usedTools = Array.isArray(used_tool) ? used_tool : (used_tool ? [used_tool] : []);
-
-    const availableTools = toolList
-        .filter(t => !usedTools.includes(t.name))
-        .map(t => t.name)
-        .join(", ");
-
-    console.log("🚧 availableTools:", availableTools);
 
     const logKey = email || session_id;
     const log = (msg, step = null) => pushLog(logKey, { msg, step });
@@ -44,7 +31,6 @@ export async function intentClassifier({
     const similarConsult = await searchSimilar(userQuestion, 3, 0.5, "consult_docs");
     const similarSql = await searchSimilar(userQuestion, 3, 0.5, "sql_docs");
     const similarPolicy = await searchSimilar(userQuestion, 3, 0.5, "policy_docs");
-    const similarTools = await searchSimilar(userQuestion, 3, 0.5, "tools");
 
     const formatSimilar = (similarDocs, label) =>
         similarDocs
@@ -54,7 +40,6 @@ export async function intentClassifier({
     const consultContext = formatSimilar(similarConsult, "consult");
     const sqlContext = formatSimilar(similarSql, "sql");
     const policyContext = formatSimilar(similarPolicy, "policy");
-    const toolContext = formatSimilar(similarTools, "tools");
 
     console.log(`\n🌀 intentClassifier Loop Back Count: ${loopCount}`);
     log(`Bill kiểm tra câu hỏi và kết quả.`, "intent-loop");
@@ -77,6 +62,7 @@ export async function intentClassifier({
         .filter(Boolean)
         .join("\n");
 
+
     const prompt = [
         [
             "system",
@@ -89,8 +75,6 @@ INTENT HỢP LỆ:
 - sql: KH hỏi về thông tin sản phẩm, giá, đơn hàng
 - cancel: Chỉ khi KH muốn hủy đơn, thay đổi thông tin vận chuyển, thông tin cá nhân, ĐẶT HÀNG(check out).
 - policy: KH hỏi về chính sách đổi trả, vận chuyển
-- match_product: KH nhắc đến sản phẩm/hãng cụ thể (VD: “Yonex Astrox 100ZZ”, “giày Lining AYAS010”) → cần gọi tool match_product.
-- add_to_cart: KH thể hiện rõ ý định mua, đặt hàng, thêm vào giỏ (VD: “mua ngay”, “thêm vào giỏ”, “đặt cây này”) → cần gọi tool add_to_cart.
 - __end__: khi KH không hỏi thêm gì mới hoặc tất cả intent đã được trả lời
  
 QUY TẮC:
@@ -98,11 +82,10 @@ QUY TẮC:
 2. Nếu câu hỏi hiện tại rất ngắn khó phân loại intent (ví dụ: "có", "ok", "tiếp tục") → hãy đoán intent dựa trên tin nhắn AI ngay trước đó.
 3. Nếu KH hỏi nhiều ý (VD: "vợt cho người mới chơi và chính sách đổi trả") → chọn intent CHƯA có trong danh sách đã xử lý (answered_intents), theo thứ tự.
 4. Nếu KH không hỏi gì thêm, hoặc tất cả intent đã có → trả về "__end__".
-5. Đôi lúc có cần sử dụng tool nên hãy đọc lịch sử khoảng 10 cuộc trò chuyện (user - ai) gần nhất rồi đưa ra tool đúng nhất (availableTools).
+5. Đôi lúc có cần sử dụng tool nên hãy đọc lịch sử khoảng 10 cuộc trò chuyện (user - ai) gần nhất rồi đưa ra intent đung nhất.
+eg. tôi muốn thêm yonex duora z strike vào giỏ hàng -> consult
 6. Trả về đúng 1 từ: consult, sql, cancel, policy hoặc __end__. Không giải thích.
 7. Nếu KH chỉ chào hỏi ("hi", "chào", "hello", "tôi tên là...", "cho mình hỏi", "mình mới tới",...) và không đề cập cụ thể, hãy mặc định phân loại là consult.
-8. Nếu câu hỏi KH cần nhiều tool → chọn tool CHƯA có trong danh sách đã xử lý (used_tools), theo thứ tự.
-
 
 Các tool hiện có: thêm vào giỏ hàng, chỉ consult có thể sử dụng tool này.
 `
@@ -120,14 +103,10 @@ ${historyFormatted}
 📦 Danh sách sản phẩm đang bán:
 ${productList}
 
-Tool đã được dùng (usedTools): ${usedTools}
-Tool có sẵn để dùng (availableTools): ${availableTools}
-
 🧠 Các ví dụ tham khảo gần giống từ bộ huấn luyện:
 ${consultContext}
 ${sqlContext}
 ${policyContext}
-${toolContext}
 `
         ]
     ];
@@ -136,7 +115,7 @@ ${toolContext}
     const raw = (intent.content || "").trim().toLowerCase();
     console.log("🟨 Classifier Raw Result:", raw);
 
-    // --- Chuẩn hóa danh sách intent đã xử lý ---
+    // normalize answered_intents to unique list
     const prevAnswered = Array.isArray(answered_intents)
         ? answered_intents
         : answered_intents
@@ -144,46 +123,14 @@ ${toolContext}
             : [];
     const uniqueAnswered = [...new Set(prevAnswered)];
 
-    // --- Chuẩn hóa danh sách tool đã dùng ---
-    const prevUsedTools = Array.isArray(used_tool)
-        ? used_tool
-        : used_tool
-            ? [used_tool]
-            : [];
-    const uniqueUsedTools = [...new Set(prevUsedTools)];
+    // if classifier suggests an intent already answered, end the conversation
+    const next = uniqueAnswered.includes(raw) ? "__end__" : raw;
 
-    // --- Nếu intent trùng với intent đã xử lý → __end__
-    if (uniqueAnswered.includes(raw)) {
-        console.log(`⚠️ Intent ${raw} đã được xử lý, dừng lại.`);
-        return {
-            messages,
-            next: "__end__",
-            answered_intents: uniqueAnswered,
-            original_user_msg: userQuestion,
-            cartOutput,
-        };
-    }
-
-    // --- Nếu intent là 1 tool và tool này đã dùng → __end__
-    const toolNames = toolList.map(t => t.name);
-    if (toolNames.includes(raw) && uniqueUsedTools.includes(raw)) {
-        console.log(`⚠️ Tool ${raw} đã được sử dụng trước đó → dừng lại.`);
-        return {
-            messages,
-            next: "__end__",
-            answered_intents: uniqueAnswered,
-            original_user_msg: userQuestion,
-            cartOutput,
-        };
-    }
-
-    // --- Nếu không, tiếp tục flow bình thường ---
     return {
         messages,
-        next: raw,
+        next,
         answered_intents: uniqueAnswered,
         original_user_msg: userQuestion,
         cartOutput,
     };
-
 }

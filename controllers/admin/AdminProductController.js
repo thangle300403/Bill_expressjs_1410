@@ -14,7 +14,9 @@ const util = require('util');
 const { invalidateChromaCache, runProductSeeds } = require('../api/Chatbot/runInitialSeed');
 const { updateSingleProductEmbedding } = require('../api/Chatbot/initAgents/productDesChroma');
 const { invalidateProductCache } = require('../api/Chatbot/cache/productCache');
+const { summarizeDescription } = require('./summarizeDescription');
 const pipelineAsync = util.promisify(pipeline);
+
 // Go up two levels from the current directory
 class AdminProductController {
     //trả về view -> (req, res)
@@ -98,7 +100,12 @@ class AdminProductController {
                 created_date: req.app.locals.helpers.getCurrentDateTime(),
                 featured: fields.featured[0]
             }
-            await productModel.save(data);
+            const newId = await productModel.save(data);
+
+            const shortDesc = await summarizeDescription(data.description);
+
+            await productModel.update(newId, { short_description: shortDesc });
+
             req.session.message_success = `Thêm sản phẩm ${data.name} thành công!`;
 
             invalidateProductCache();
@@ -141,6 +148,8 @@ class AdminProductController {
             const { fields, files } = await req.app.locals.helpers.parseForm(req);
             const id = fields.id[0];
 
+            const oldProduct = await productModel.find(id);
+
             // Prepare data object for updating
             const data = {
                 barcode: fields.barcode[0],
@@ -174,7 +183,24 @@ class AdminProductController {
 
             // Perform the database update
             await productModel.update(fields.id[0], data);
+
             invalidateProductCache();
+
+            // 🔍 Kiểm tra xem description có thay đổi không
+            const oldDesc = (oldProduct?.description || "").trim();
+            const newDesc = (fields.description[0] || "").trim();
+
+            if (oldDesc !== newDesc) {
+                console.log("🧠 Mô tả thay đổi, bắt đầu rút gọn và cập nhật embedding...");
+
+                // 1️⃣ Gọi summarize
+                const shortDesc = await summarizeDescription(newDesc);
+
+                // 2️⃣ Cập nhật short_description
+                await productModel.update(id, { short_description: shortDesc });
+            } else {
+                console.log("ℹ️ Description không thay đổi — bỏ qua summarize & embedding update.");
+            }
 
             // ✅ Cập nhật lại embedding cho sản phẩm vừa update
             await updateSingleProductEmbedding(id, "update");

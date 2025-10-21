@@ -32,7 +32,6 @@ export async function runInitialSeeds() {
     await import("././initAgents/trainSql.js");
     await import("././initAgents/trainPolicy.js");
     await import("././initAgents/trainConsultDecision.js");
-    await import("././initAgents/trainTools.js");
     // await init();
 
     fs.writeFileSync(PROMPT_SEED_FILE, "seeded");
